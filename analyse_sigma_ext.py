@@ -98,7 +98,18 @@ def tests(per, a_, b_, ref):
     return rows
 
 
-OUT = {"seeds": SEEDS, "pools": {}}
+OUT = {"seeds": SEEDS, "pools": {}, "eligibility": {}, "timing_by_process": {}}
+for s_ in SOL:
+    for e in samples(EXT[SEEDS[0]], s_):
+        for T in BUDGETS:
+            cnt = 0; Ns = []
+            for sd in SEEDS:
+                runs = samples(EXT[sd], s_)[e]; N = int(T // np.mean([x[1] for x in runs])); Ns.append(N)
+                cnt += int(N >= 1 and len(runs) >= 2 * N)
+            OUT["eligibility"][f"{s_}|{e}|{T}"] = dict(eligible_instances=cnt, N_min=int(min(Ns)), N_max=int(max(Ns)),
+                                                        m=min(len(samples(EXT[sd], s_)[e]) for sd in SEEDS))
+        ta = [np.mean([x[1] for x in samples(EXT[sd], s_)[e]]) for sd in SEEDS if sd < 15]; tb = [np.mean([x[1] for x in samples(EXT[sd], s_)[e]]) for sd in SEEDS if sd >= 15]
+        OUT["timing_by_process"][f"{s_}|{e}"] = dict(seeds_0_14=float(np.mean(ta)) if ta else None, seeds_15_29=float(np.mean(tb)) if tb else None)
 for s_ in SOL:
     for e, runs in samples(EXT[SEEDS[0]], s_).items():
         OUT["pools"][f"{s_}|{e}"] = dict(m=min(len(samples(EXT[sd], s_)[e]) for sd in SEEDS),
@@ -108,8 +119,7 @@ for name, ref in (("primary", REF), ("sdp_ref", REF_SDP)):
     T_pol = tests(per, "SA-tuned", "bSB+polish", ref); T_fro = tests(per, "SA-frozen", "bSB+polish", ref); T_bsb = tests(per, "SA-tuned", "bSB", ref)
     eq = [t["T"] for t in T_pol if t["p_tost_holm"] < 0.05]; tested = [t["T"] for t in T_pol]; upto = 0
     for T in BUDGETS:
-        if T not in tested: continue              # untested budget (no eligible effort): neither success nor failure
-        if T in eq: upto = T
+        if T in tested and T in eq: upto = T      # amendment 2: stop at the first untested or non-equivalent budget
         else: break
     OUT[name] = dict(res=res, tuned_vs_polish=T_pol, frozen_vs_polish=T_fro, tuned_vs_bsb=T_bsb, equivalent_up_to=upto,
                      cert_gap=float(np.mean([(ref[s] / LB[s] - 1) * 100 for s in SEEDS])))
@@ -215,6 +225,9 @@ def schema(ref, res, per):
             if nm != "crossfit_raw":
                 for t, h in zip(sub, holm([t["p_tost"] for t in sub])): t["p_tost_holm"] = h
     o["variants"] = var
+    tb = [v for v in OUT["timing_by_process"].values() if v["seeds_0_14"] and v["seeds_15_29"]]
+    dr = max(abs(v["seeds_0_14"] / v["seeds_15_29"] - 1) for v in tb) * 100 if tb else float("nan")
+    o["timing_drift_pct"] = dr
     return o
 
 

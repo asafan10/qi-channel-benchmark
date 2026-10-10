@@ -29,3 +29,11 @@ untested. The Holm family is the set of tested budgets of that comparison (at mo
 
 Separate families: the comparison with the semidefinite-rounding plans in the reference, the cross-fitted variants and the equal-time comparison
 with semidefinite rounding are each reported as their own families (the last is exploratory and uncorrected).
+
+Amendment 2, 2026-10-10 about 14:35 (Cairo), before the full analysis, after a referee's comments:
+- "Equivalent up to X s" stops at the first budget, in increasing order, at which the comparison is either untested (no eligible effort for
+  either solver) or not equivalent. A verdict is reported only at budgets where both solvers have an eligible effort.
+- The per-instance eligibility counts (instances with N >= 1 and m >= 2N, per solver, effort and budget) are reported.
+- The wording "still improving slowly" for bSB alone is used when its best-of-N gap falls by more than 0.1 point from 30 s to 100 s. This
+  threshold was chosen after the first two instances had been seen; it is descriptive and is not tested.
+- The per-run times of the two processes (seeds 0-14 and 15-29) are compared per effort, and any drift in load is reported.
