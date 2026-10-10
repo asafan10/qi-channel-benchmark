@@ -10,6 +10,13 @@ from scipy.stats import wilcoxon
 MARGIN = 0.5; BUDGETS = [1, 3, 10, 30, 100]; BOOT = 2000
 OLD = {r["seed"]: r for r in map(json.loads, open("results/sigma03.jsonl"))}
 EXT = {r["seed"]: r for r in map(json.loads, open("results/sigma03_ext.jsonl"))}
+import os as _os
+if _os.path.exists("results/sigma03_ext2.jsonl") and _os.environ.get("NO_EXT2") != "1":   # amendment 3: extended pools
+    for r2 in map(json.loads, open("results/sigma03_ext2.jsonl")):
+        R0 = EXT[r2["seed"]]["runs"]
+        for f, recs in r2["runs"]["bSB"].items(): R0["bSB"][f] = R0["bSB"][f] + recs
+        for key in ("SA-tuned", "SA-frozen"):
+            for f, recs in r2["runs"][key].items(): R0[key][f] = R0[key][f] + recs
 SDP = {r["seed"]: r for r in map(json.loads, open("results/sdp_round_sigma0.3.jsonl"))}
 import os
 SEEDS = sorted(s for s in EXT if s in OLD)
@@ -230,6 +237,16 @@ def schema(ref, res, per):
             if nm != "crossfit_raw":
                 for t, h in zip(sub, holm([t["p_tost"] for t in sub])): t["p_tost_holm"] = h
     o["variants"] = var
+    # descriptive: smallest margin (0.01 grid) at which equivalence holds at each tested budget, Holm over the tested budgets
+    curve = {}
+    dls = {T: per[("SA-tuned", T)] - per[("bSB+polish", T)] for T in BUDGETS if ("SA-tuned", T) in per and ("bSB+polish", T) in per}
+    for k in range(1, 101):
+        m_ = k / 100; Ts = sorted(dls); ps = [float(max(wilcoxon(dls[T] + m_, alternative="greater").pvalue, wilcoxon(dls[T] - m_, alternative="less").pvalue)) for T in Ts]
+        for T, h in zip(Ts, holm(ps)):
+            if h < 0.05 and str(T) not in curve: curve[str(T)] = m_
+    o["margin_curve"] = curve
+    v1 = json.load(open("results/sigma03_v1.json"))
+    o["first_round"] = {str(t["T"]): t["med_diff"] for t in v1["tests_vs_polish"] if t["a"] == "SA-tuned"}
     tb = [v for v in OUT["timing_by_process"].values() if v["seeds_0_14"] and v["seeds_15_29"]]
     dr = max(abs(v["seeds_0_14"] / v["seeds_15_29"] - 1) for v in tb) * 100 if tb else float("nan")
     o["timing_drift_pct"] = dr

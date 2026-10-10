@@ -38,7 +38,7 @@ Amendment 2, 2026-10-10 about 14:35 (Cairo), before the full analysis, after a r
   threshold was chosen after the first two instances had been seen; it is descriptive and is not tested.
 - The per-run times of the two processes (seeds 0-14 and 15-29) are compared per effort, and any drift in load is reported.
 
-Amendment 3, 2026-10-10 about 21:05 (Cairo), written after the results at 1-30 s were known and before any estimate at 100 s exists:
+Amendment 3, 2026-10-10 about 20:55 (Cairo), written after the results at 1-30 s were known and before any estimate at 100 s exists:
 - To make 100 s testable, the pools of the efforts that can reach it are extended on the same 30 instances, on the same machine and under
   the same two-process load, with no other jobs running: native SA x256 (tuned +10, frozen +8 runs), bSB x16 (+16 batches) and bSB x1 with
   polish (+26 batches). The new runs are appended to the existing pools (bench_sigma_ext2.py -> results/sigma03_ext2.jsonl); the mean run
