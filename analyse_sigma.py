@@ -38,7 +38,7 @@ SDPREF = os.environ.get("SDPREF") == "1"     # robustness: reference also includ
 if SDPREF:
     for l in open("results/sdp_round_sigma0.3.jsonl"):
         d_ = json.loads(l); ref[d_["seed"]] = min(ref[d_["seed"]], d_["f_best"])
-OUTF = "results/sigma03_sdpref.json" if SDPREF else "results/sigma03.json"
+OUTF = "results/sigma03_sdpref_v1.json" if SDPREF else "results/sigma03_v1.json"   # first-round analysis; the manuscript uses analyse_sigma_ext.py
 
 
 def exp_min(f, N, B=300):

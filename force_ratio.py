@@ -32,5 +32,5 @@ for lay in ("regular", "jitter0.3"):
                          field=float(np.linalg.norm(hp) / np.linalg.norm(hi)), force_median=float(np.median(r_force)), along_pump=snap))
     out[lay] = dict(rows=rows, **{k: float(np.median([r[k] for r in rows])) for k in ("lam", "frob_J", "field", "force_median")},
                     along_pump={t: float(np.median([r["along_pump"][t] for r in rows])) for t in rows[0]["along_pump"]})
-    print(lay, {k: round(v, 3) for k, v in out[lay].items() if k != "rows"})
+    print(lay, {k: (round(v, 3) if isinstance(v, float) else v) for k, v in out[lay].items() if k != "rows"})
 json.dump(out, open("results/force_ratio.json", "w"), indent=1)

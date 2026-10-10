@@ -11,7 +11,10 @@ MARGIN = 0.5; BUDGETS = [1, 3, 10, 30, 100]; BOOT = 2000
 OLD = {r["seed"]: r for r in map(json.loads, open("results/sigma03.jsonl"))}
 EXT = {r["seed"]: r for r in map(json.loads, open("results/sigma03_ext.jsonl"))}
 SDP = {r["seed"]: r for r in map(json.loads, open("results/sdp_round_sigma0.3.jsonl"))}
+import os
 SEEDS = sorted(s for s in EXT if s in OLD)
+if os.environ.get("EXCL_EARLY") == "1":                 # post hoc sensitivity: drop the four instances run before the pause, whose timings were perturbed
+    SEEDS = [s for s in SEEDS if s not in (0, 1, 15, 16)]
 
 
 def old_costs(r):
@@ -153,7 +156,7 @@ for label, fkey, tkey in (("rounding + descent", "descent_best", "t_desc"), ("ro
     dl = np.array(dl)
     eq_rows.append(dict(method=label, med_diff=float(np.median(dl)), wins_rounding=int((dl < 0).sum()), N=len(dl), p=float(wilcoxon(dl).pvalue)))
 OUT["rounding_equal_time"] = eq_rows
-json.dump(OUT, open("results/sigma03_ext.json", "w"), indent=1)
+json.dump(OUT, open("results/sigma03_ext_excl_early.json" if os.environ.get("EXCL_EARLY") == "1" else "results/sigma03_ext.json", "w"), indent=1)
 for name in ("primary", "sdp_ref"):
     print("==", name, "equivalent up to", OUT[name]["equivalent_up_to"], "s; cert gap %.2f" % OUT[name]["cert_gap"])
     for k, v in OUT[name]["res"].items(): print("  ", k, None if v is None else "%.2f [%.2f, %.2f] %s" % tuple(v))
@@ -209,6 +212,8 @@ def schema(ref, res, per):
     o["cert_gap"] = float(np.mean([(ref[s] / LB[s] - 1) * 100 for s in SEEDS])); o["cert_gap_max"] = float(max((ref[s] / LB[s] - 1) * 100 for s in SEEDS))
     o["sdp_gap_100"] = {NAMEMAP[s_]: float(np.median([ref[sd] * (1 + g_ / 100) / LB[sd] * 100 - 100 for sd, g_ in zip(SEEDS, per[(s_, 100)])]))
                         for s_ in SOL if (s_, 100) in per}
+    o["sdp_gap"] = {f"{NAMEMAP[s_]}|{T}": float(np.median([ref[sd] * (1 + g_ / 100) / LB[sd] * 100 - 100 for sd, g_ in zip(SEEDS, per[(s_, T)])]))
+                    for s_ in SOL for T in BUDGETS if (s_, T) in per}
     var = {"crossfit_gap": [], "crossfit_raw": [], "crossfit_sdp": []}
     for a_, b_ in (("SA-frozen", "bSB+polish"), ("SA-tuned", "bSB+polish"), ("SA-frozen", "bSB")):
         for T in BUDGETS:
@@ -231,15 +236,15 @@ def schema(ref, res, per):
     return o
 
 
-for name, ref, fn in (("primary", REF, "results/sigma03.json"), ("sdp_ref", REF_SDP, "results/sigma03_sdpref.json")):
+for name, ref, fn in ((() if os.environ.get("EXCL_EARLY") == "1" else (("primary", REF, "results/sigma03.json"), ("sdp_ref", REF_SDP, "results/sigma03_sdpref.json")))):
     res, per = table(ref)
     json.dump(schema(ref, res, per), open(fn, "w"), indent=1)
 
 # semidefinite rounding on the irregular layout, against the fresh reference, for Section 5.10 and Table B9
-SDJ = json.load(open("results/sdp_round.json"))
+SDJ = json.load(open("results/sdp_round.json")) if os.environ.get("EXCL_EARLY") != "1" else None
 gs = np.array([g(SDP[s]["f_best"], s) for s in sd_])
-SDJ["sigma"] = dict(N=len(sd_), gap_ref_median=float(np.median(gs)), gap_ref_min=float(gs.min()), gap_ref_max=float(gs.max()),
+if SDJ is not None: SDJ["sigma"] = dict(N=len(sd_), gap_ref_median=float(np.median(gs)), gap_ref_min=float(gs.min()), gap_ref_max=float(gs.max()),
                     n_improved=int((gs < -1e-7).sum()), gap_lb_mean=float(np.mean([(SDP[s]["f_best"] / LB[s] - 1) * 100 for s in sd_])),
                     ref_lb_mean=float(np.mean([(REF[s] / LB[s] - 1) * 100 for s in sd_])), t_median=OUT["rounding"]["t_total"]["median"],
                     t_max=OUT["rounding"]["t_total"]["max"], eps=OUT["rounding"]["eps"], ablation=OUT["rounding"], equal_time=OUT["rounding_equal_time"])
-json.dump(SDJ, open("results/sdp_round.json", "w"), indent=1)
+if SDJ is not None: json.dump(SDJ, open("results/sdp_round.json", "w"), indent=1)
