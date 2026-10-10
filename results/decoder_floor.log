@@ -1,0 +1,8 @@
+3 20 {'repair_empty': 18.8, 'index': 18.8, 'reverse': 30.7, 'degree': 26.2, 'random_best': 13.3, 'random_median': 54.0, 'dsatur': 28.4}
+3 50 {'repair_empty': 27.8, 'index': 27.8, 'reverse': 25.7, 'degree': 32.3, 'random_best': 28.7, 'random_median': 53.4, 'dsatur': 35.4}
+3 100 {'repair_empty': 19.0, 'index': 19.0, 'reverse': 25.3, 'degree': 33.7, 'random_best': 34.6, 'random_median': 52.8, 'dsatur': 37.0}
+3 200 {'repair_empty': 24.1, 'index': 24.1, 'reverse': 29.0, 'degree': 39.2, 'random_best': 40.7, 'random_median': 52.2, 'dsatur': 40.8}
+3 500 {'repair_empty': 20.0, 'index': 20.0, 'reverse': 26.3, 'degree': 35.3, 'random_best': 42.2, 'random_median': 48.6, 'dsatur': 37.5}
+4 50 {'repair_empty': 9.7, 'index': 9.7, 'reverse': 6.9, 'degree': 25.6, 'random_best': 24.1, 'random_median': 48.1, 'dsatur': 31.2}
+4 100 {'repair_empty': 3.0, 'index': 3.0, 'reverse': 2.6, 'degree': 22.7, 'random_best': 25.0, 'random_median': 42.8, 'dsatur': 27.6}
+4 200 {'repair_empty': 2.4, 'index': 2.4, 'reverse': 2.4, 'degree': 27.1, 'random_best': 29.3, 'random_median': 40.2, 'dsatur': 33.2}

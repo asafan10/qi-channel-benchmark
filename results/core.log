@@ -1,0 +1,35 @@
+C 3 0 {'ours': (93.1, np.float64(1.0)), 'ours-pkgset': (95.2, np.float64(1.0)), 'ours-ancilla': (97.2, np.float64(1.0)), 'pkg-ourset': (92.7, np.float64(0.0))}
+C 3 1 {'ours': (90.1, np.float64(1.0)), 'ours-pkgset': (93.2, np.float64(1.0)), 'ours-ancilla': (92.8, np.float64(1.0)), 'pkg-ourset': (102.8, np.float64(0.0))}
+C 3 2 {'ours': (90.8, np.float64(1.0)), 'ours-pkgset': (96.0, np.float64(1.0)), 'ours-ancilla': (94.4, np.float64(1.0)), 'pkg-ourset': (106.0, np.float64(0.0))}
+C 3 3 {'ours': (91.1, np.float64(1.0)), 'ours-pkgset': (99.5, np.float64(1.0)), 'ours-ancilla': (95.2, np.float64(1.0)), 'pkg-ourset': (102.4, np.float64(0.0))}
+C 3 4 {'ours': (95.3, np.float64(1.0)), 'ours-pkgset': (99.4, np.float64(1.0)), 'ours-ancilla': (98.6, np.float64(1.0)), 'pkg-ourset': (107.0, np.float64(0.0))}
+C 4 0 {'ours': (53.0, np.float64(1.0)), 'ours-pkgset': (59.0, np.float64(1.0)), 'ours-ancilla': (59.8, np.float64(1.0)), 'pkg-ourset': (48.8, np.float64(0.0))}
+C 4 1 {'ours': (50.8, np.float64(1.0)), 'ours-pkgset': (58.6, np.float64(1.0)), 'ours-ancilla': (58.4, np.float64(1.0)), 'pkg-ourset': (46.2, np.float64(0.0))}
+C 4 2 {'ours': (53.1, np.float64(1.0)), 'ours-pkgset': (58.4, np.float64(1.0)), 'ours-ancilla': (58.5, np.float64(1.0)), 'pkg-ourset': (47.9, np.float64(0.0))}
+C 4 3 {'ours': (53.3, np.float64(1.0)), 'ours-pkgset': (60.8, np.float64(1.0)), 'ours-ancilla': (59.8, np.float64(1.0)), 'pkg-ourset': (49.3, np.float64(0.0))}
+C 4 4 {'ours': (53.5, np.float64(1.0)), 'ours-pkgset': (58.6, np.float64(1.0)), 'ours-ancilla': (57.9, np.float64(1.0)), 'pkg-ourset': (49.3, np.float64(0.0))}
+A 3 100
+A 3 101
+A 4 100
+A 4 101
+B 3 0
+B 3 1
+B 3 2
+B 3 3
+B 3 4
+B 3 5
+B 3 6
+B 3 7
+B 3 8
+B 3 9
+B 4 0
+B 4 1
+B 4 2
+B 4 3
+B 4 4
+B 4 5
+B 4 6
+B 4 7
+B 4 8
+B 4 9
+DONE

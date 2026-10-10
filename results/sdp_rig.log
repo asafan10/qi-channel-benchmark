@@ -1,0 +1,39 @@
+(CVXPY) Oct 08 04:54:25 PM: Encountered unexpected exception importing solver HIGHS:
+ImportError('/usr/local/lib/python3.13/dist-packages/highspy/_core.cpython-313-x86_64-linux-gnu.so: undefined symbol: _ZN5Highs13releaseMemoryEv')
+3 20 0 lb_rig 4.5868 sdp 4.5869 slack 3.02e-05 lmin -1.52e-06 0s
+3 20 1 lb_rig 5.2571 sdp 5.2571 slack 1.60e-05 lmin -7.92e-07 0s
+3 20 2 lb_rig 5.0207 sdp 5.0207 slack 5.26e-05 lmin -2.65e-06 0s
+3 20 3 lb_rig 4.9192 sdp 4.9194 slack 1.25e-04 lmin -6.21e-06 0s
+3 20 4 lb_rig 5.7910 sdp 5.7911 slack 6.89e-05 lmin -3.47e-06 0s
+3 50 0 lb_rig 16.1768 sdp 16.1774 slack 6.55e-04 lmin -1.31e-05 5s
+3 50 1 lb_rig 15.9121 sdp 15.9126 slack 4.81e-04 lmin -9.62e-06 9s
+3 50 2 lb_rig 15.9237 sdp 15.9245 slack 7.81e-04 lmin -1.56e-05 6s
+3 50 3 lb_rig 17.1580 sdp 17.1586 slack 5.43e-04 lmin -1.09e-05 6s
+3 50 4 lb_rig 16.4974 sdp 16.4978 slack 4.83e-04 lmin -9.67e-06 7s
+3 100 0 lb_rig 37.9834 sdp 37.9851 slack 1.65e-03 lmin -1.65e-05 76s
+3 100 1 lb_rig 36.6866 sdp 36.6884 slack 1.77e-03 lmin -1.77e-05 64s
+3 100 2 lb_rig 37.5218 sdp 37.5232 slack 1.43e-03 lmin -1.43e-05 87s
+(CVXPY) Oct 08 05:17:19 PM: Encountered unexpected exception importing solver HIGHS:
+ImportError('/usr/local/lib/python3.13/dist-packages/highspy/_core.cpython-313-x86_64-linux-gnu.so: undefined symbol: _ZN5Highs13releaseMemoryEv')
+3 100 3 lb_rig 37.2880 sdp 37.2892 slack 1.20e-03 lmin -1.20e-05 79s
+3 100 4 lb_rig 37.4090 sdp 37.4101 slack 1.10e-03 lmin -1.10e-05 85s
+3 200 0 lb_rig 82.2415 sdp 82.2469 slack 5.39e-03 lmin -2.70e-05 1108s
+3 200 1 lb_rig 78.7772 sdp 78.7807 slack 3.46e-03 lmin -1.73e-05 799s
+3 200 2 lb_rig 80.1528 sdp 80.1572 slack 4.40e-03 lmin -2.20e-05 710s
+3 200 3 lb_rig 81.5740 sdp 81.5804 slack 6.46e-03 lmin -3.23e-05 861s
+3 200 4 lb_rig 81.7424 sdp 81.7457 slack 3.25e-03 lmin -1.62e-05 788s
+4 50 0 lb_rig 8.2380 sdp 8.2385 slack 4.82e-04 lmin -9.65e-06 5s
+4 50 1 lb_rig 7.9568 sdp 7.9575 slack 7.11e-04 lmin -1.42e-05 4s
+4 50 2 lb_rig 7.9833 sdp 7.9841 slack 8.15e-04 lmin -1.63e-05 5s
+4 50 3 lb_rig 8.7005 sdp 8.7015 slack 9.91e-04 lmin -1.99e-05 8s
+4 50 4 lb_rig 7.9376 sdp 7.9386 slack 1.03e-03 lmin -2.06e-05 4s
+4 100 0 lb_rig 19.7442 sdp 19.7473 slack 3.16e-03 lmin -3.16e-05 60s
+4 100 1 lb_rig 18.8391 sdp 18.8421 slack 2.93e-03 lmin -2.94e-05 40s
+4 100 2 lb_rig 19.3618 sdp 19.3647 slack 2.88e-03 lmin -2.88e-05 63s
+4 100 3 lb_rig 18.9901 sdp 18.9926 slack 2.41e-03 lmin -2.42e-05 66s
+4 100 4 lb_rig 19.1444 sdp 19.1467 slack 2.31e-03 lmin -2.31e-05 61s
+4 200 0 lb_rig 43.1553 sdp 43.1615 slack 6.27e-03 lmin -3.14e-05 591s
+4 200 1 lb_rig 41.7392 sdp 41.7455 slack 6.29e-03 lmin -3.15e-05 639s
+4 200 2 lb_rig 42.5857 sdp 42.5920 slack 6.39e-03 lmin -3.20e-05 555s
+4 200 3 lb_rig 42.8166 sdp 42.8256 slack 8.98e-03 lmin -4.49e-05 558s
+4 200 4 lb_rig 43.0448 sdp 43.0516 slack 6.80e-03 lmin -3.40e-05 571s

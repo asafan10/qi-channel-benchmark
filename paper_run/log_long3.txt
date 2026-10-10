@@ -1,0 +1,67 @@
+# Symmetric long-run comparison, K=3
+
+
+## n = 200 cells (5 instances)
+
+### Single-run median gap to updated best-known (%) and mean time per run (ms)
+
+| solver | effort factor | runs/instance | median gap % | time/run (ms) |
+|---|---|---|---|---|
+| SA-native | x0.25 | 300 | 22.9 | 9 |
+| SA-native | x1 | 148 | 18.0 | 34 |
+| SA-native | x4 | 38 | 13.8 | 133 |
+| SA-native | x16 | 10 | 9.7 | 517 |
+| SA-native | x64 | 8 | 6.0 | 2060 |
+| SA-native | x256 | 3 | 5.2 | 8147 |
+| bSB | x0.167 | 110 | 26.9 | 45 |
+| bSB | x0.333 | 57 | 18.9 | 89 |
+| bSB | x1 | 20 | 13.3 | 262 |
+| bSB | x2 | 10 | 12.0 | 527 |
+| bSB | x4 | 5 | 12.3 | 1069 |
+| bSB | x8 | 3 | 12.7 | 2115 |
+| bSB | x16 | 3 | 12.0 | 4205 |
+| bSB | x32 | 2 | 12.8 | 8337 |
+| bSB | x64 | 1 | 13.2 | 16907 |
+
+### Matched wall-clock: expected best-of-N gap (%) with the best effort level chosen at each budget (median over instances)
+
+| budget T | SA-native | bSB (batch = 1 run) | bSB (each replica = 1 run, optimistic) |
+|---|---|---|---|
+| 1 s | 9.3% (x16) | 11.4% (x1) | 11.9% (x4) |
+| 3 s | 6.0% (x16) | 10.2% (x1) | 10.6% (x4) |
+| 10 s | 5.0% (x64) | 9.5% (x1) | 10.0% (x4) |
+| 30 s | 4.2% (x64) | 9.0% (x1) | 9.9% (x4) |
+| 100 s | 4.0% (x64) | 9.0% (x1) | 9.9% (x4) |
+
+## n = 500 cells (5 instances)
+
+### Single-run median gap to updated best-known (%) and mean time per run (ms)
+
+| solver | effort factor | runs/instance | median gap % | time/run (ms) |
+|---|---|---|---|---|
+| SA-native | x0.25 | 200 | 20.5 | 25 |
+| SA-native | x1 | 52 | 16.2 | 96 |
+| SA-native | x4 | 14 | 12.8 | 379 |
+| SA-native | x16 | 8 | 9.4 | 1492 |
+| SA-native | x64 | 8 | 6.0 | 5729 |
+| SA-native | x256 | 3 | 2.4 | 22037 |
+| bSB | x0.167 | 46 | 27.6 | 110 |
+| bSB | x0.333 | 23 | 19.4 | 220 |
+| bSB | x1 | 8 | 14.4 | 638 |
+| bSB | x2 | 8 | 13.1 | 1286 |
+| bSB | x4 | 5 | 12.1 | 2609 |
+| bSB | x8 | 3 | 12.3 | 5134 |
+| bSB | x16 | 3 | 12.5 | 10305 |
+| bSB | x32 | 2 | 11.6 | 20627 |
+| bSB | x64 | 1 | 12.8 | 41072 |
+
+### Matched wall-clock: expected best-of-N gap (%) with the best effort level chosen at each budget (median over instances)
+
+| budget T | SA-native | bSB (batch = 1 run) | bSB (each replica = 1 run, optimistic) |
+|---|---|---|---|
+| 1 s | 11.6% (x4) | 14.6% (x1) | 13.1% (x4) |
+| 3 s | 9.2% (x16) | 12.1% (x4) | 12.2% (x4) |
+| 10 s | 5.9% (x64) | 11.6% (x2) | 11.6% (x4) |
+| 30 s | 2.3% (x256) | 11.6% (x2) | 11.6% (x4) |
+| 100 s | 0.6% (x256) | 11.2% (x32) | 11.2% (x32) |
+

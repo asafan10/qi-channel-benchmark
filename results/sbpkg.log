@@ -1,0 +1,15 @@
+3 200 0 {'pkg-bSB': 92.71, 'pkg-dSB-heated': 117.79}
+3 200 1 {'pkg-bSB': 103.1, 'pkg-dSB-heated': 114.48}
+3 200 2 {'pkg-bSB': 105.92, 'pkg-dSB-heated': 114.02}
+3 200 3 {'pkg-bSB': 107.52, 'pkg-dSB-heated': 119.14}
+3 200 4 {'pkg-bSB': 106.98, 'pkg-dSB-heated': 116.76}
+3 500 0 {'pkg-bSB': 263.63, 'pkg-dSB-heated': 320.07}
+3 500 1 {'pkg-bSB': 279.64, 'pkg-dSB-heated': 324.32}
+3 500 2 {'pkg-bSB': 265.58, 'pkg-dSB-heated': 326.13}
+3 500 3 {'pkg-bSB': 286.83, 'pkg-dSB-heated': 314.24}
+3 500 4 {'pkg-bSB': 253.04, 'pkg-dSB-heated': 316.02}
+4 200 0 {'pkg-bSB': 48.83, 'pkg-dSB-heated': 85.9}
+4 200 1 {'pkg-bSB': 46.17, 'pkg-dSB-heated': 86.37}
+4 200 2 {'pkg-bSB': 47.95, 'pkg-dSB-heated': 83.32}
+4 200 3 {'pkg-bSB': 49.35, 'pkg-dSB-heated': 87.03}
+4 200 4 {'pkg-bSB': 49.34, 'pkg-dSB-heated': 90.48}

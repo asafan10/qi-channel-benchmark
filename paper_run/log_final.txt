@@ -1,0 +1,202 @@
+# Final tables (all gaps scored against the single final best-known reference per instance)
+
+
+## Table 1. Reference drift: how much lower the final best-known is than the original benchmark's best-known
+
+| K | n | mean drop (%) | max drop (%) | instances improved |
+|---|---|---|---|---|
+| 3 | 20 | 0.00 | 0.00 | 0/5 |
+| 3 | 50 | 0.00 | 0.00 | 0/5 |
+| 3 | 100 | 1.96 | 3.33 | 4/5 |
+| 3 | 200 | 7.50 | 10.41 | 5/5 |
+| 3 | 500 | 10.57 | 11.95 | 5/5 |
+| 4 | 50 | 0.21 | 1.06 | 1/5 |
+| 4 | 100 | 0.15 | 0.64 | 3/5 |
+| 4 | 200 | 3.38 | 3.97 | 5/5 |
+
+## Table 2. Fixed-budget (3/6/12 s) restart protocol: gap to final best-known (%), mean ± std over 5 instances
+
+
+**K=3**
+
+| n | Greedy | Tabu | SA-native | CP-SAT | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|---|---|
+| 20 | 26.2 ± 2.7 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.0 ± 0.0 | 0.7 ± 1.5 | 10.1 ± 13.3 | 0.2 ± 0.5 | 0.8 ± 1.0 |
+| 50 | 32.3 ± 4.2 | 0.0 ± 0.0 | 1.2 ± 1.7 | 32.3 ± 4.2 | 20.2 ± 3.8 | 32.6 ± 6.9 | 1.5 ± 1.8 | 17.5 ± 4.9 |
+| 100 | 33.7 ± 2.4 | 2.2 ± 1.5 | 6.5 ± 1.9 | 33.7 ± 2.4 | 36.5 ± 8.4 | 52.8 ± 10.2 | 7.0 ± 2.5 | 31.6 ± 7.6 |
+| 200 | 39.2 ± 3.9 | 12.3 ± 1.5 | 9.6 ± 2.3 | 39.2 ± 3.9 | 43.0 ± 2.8 | 58.9 ± 3.9 | 8.6 ± 1.9 | 33.5 ± 2.4 |
+| 500 | 35.3 ± 3.6 | 21.8 ± 2.4 | 12.1 ± 1.6 | 35.3 ± 3.6 | 43.6 ± 2.8 | 61.7 ± 4.0 | 12.6 ± 0.7 | 34.9 ± 2.2 |
+
+**K=4**
+
+| n | Greedy | Tabu | SA-native | CP-SAT | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|---|---|
+| 50 | 25.6 ± 6.6 | 0.2 ± 0.4 | 3.3 ± 0.9 | 25.6 ± 6.6 | 36.3 ± 5.9 | 52.5 ± 9.6 | 10.0 ± 1.1 | 45.5 ± 7.9 |
+| 100 | 22.7 ± 3.0 | 0.2 ± 0.2 | 2.7 ± 1.3 | 22.7 ± 3.0 | 55.2 ± 6.0 | 71.8 ± 10.1 | 8.5 ± 0.9 | 56.7 ± 12.7 |
+| 200 | 27.1 ± 1.9 | 3.5 ± 0.5 | 4.1 ± 0.5 | 27.1 ± 1.9 | 59.8 ± 5.1 | 83.7 ± 3.7 | 9.7 ± 0.4 | 67.3 ± 6.1 |
+
+## Table 3. One-hot penalty sweep (K=3, n=100, 6 s per cell): gap to final best-known (%), mean over 5 instances
+
+Native-space SA (6 s restarts): 3.2%
+
+| scale rho | SA-QUBO gap % | bSB gap % | SA-QUBO raw feasibility | bSB raw feasibility |
+|---|---|---|---|---|
+| 1.0 | 95.2 | 21.7 | 1.00 | 1.00 |
+| 0.5 | 66.3 | 10.7 | 1.00 | 1.00 |
+| 0.25 | 36.3 | 5.3 | 1.00 | 1.00 |
+| 0.12 | 10.4 | 6.0 | 1.00 | 1.00 |
+| 0.06 | 8.7 | 5.5 | 0.92 | 0.95 |
+
+## Table 4. Original (as-published, corrected) solvers vs re-implementations (K=3): gap to final best-known (%), 5 instances
+
+| n | solver | gap % | raw one-hot feasibility | time (s) |
+|---|---|---|---|---|
+| 20 | orig-SBA | 18.8 | 0.00 | 0.0 |
+| 20 | orig-DA | 126.2 | 0.81 | 1.3 |
+| 20 | orig-PA | 97.4 | 0.50 | 2.9 |
+| 20 | new-SA-native | 0.0 | 1.00 | 3.0 |
+| 20 | new-bSB | 0.2 | 1.00 | 3.0 |
+| 20 | new-SA-QUBO | 0.0 | 1.00 | 3.0 |
+| 50 | orig-SBA | 27.8 | 0.00 | 0.0 |
+| 50 | orig-DA | 116.6 | 0.85 | 3.4 |
+| 50 | orig-PA | 111.4 | 0.47 | 7.7 |
+| 50 | new-SA-native | 1.3 | 1.00 | 3.0 |
+| 50 | new-bSB | 2.8 | 1.00 | 3.0 |
+| 50 | new-SA-QUBO | 19.4 | 1.00 | 3.0 |
+/usr/local/lib/python3.13/dist-packages/numpy/lib/_function_base_impl.py:4608: RuntimeWarning: invalid value encountered in subtract
+  diff_b_a = b - a
+
+### K=3, epsilon = 1%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 200 [15, inf]; p=0.087 | 6250 [3111, inf]; p=0.004 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | 5838 [2789, inf]; p=0.060 | inf [inf, inf]; p=0.000 |
+| 100 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 200 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 500 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+### K=3, epsilon = 2%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 65 [15, inf]; p=0.098 | 6203 [1695, inf]; p=0.008 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | 5838 [2171, inf]; p=0.073 | inf [inf, inf]; p=0.000 |
+| 100 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.007 | inf [inf, inf]; p=0.000 |
+| 200 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 500 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+### K=3, epsilon = 5%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 19 [6, 217]; p=0.219 | 1687 [556, 3409]; p=0.029 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | 2773 [401, inf]; p=0.247 | inf [inf, inf]; p=0.000 |
+| 100 | inf [1639, inf]; p=0.002 | inf [inf, inf]; p=0.001 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | 20605 [6776, inf]; p=0.033 | inf [inf, inf]; p=0.000 |
+| 200 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 500 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+
+### K=4, epsilon = 1%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 1297 [424, inf]; p=0.004 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 100 | inf [958, inf]; p=0.004 | inf [inf, inf]; p=0.001 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 200 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+### K=4, epsilon = 2%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 211 [96, 1305]; p=0.020 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 100 | 711 [289, inf]; p=0.021 | inf [14127, inf]; p=0.002 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 200 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+### K=4, epsilon = 5%: median TTS(99%) in ms over instances [95% bootstrap CI]; pooled per-run success p
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 50 | 14 [7, 16]; p=0.321 | 1633 [1088, inf]; p=0.015 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 100 | 37 [16, 104]; p=0.325 | 4709 [421, inf]; p=0.051 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+| 200 | 2649 [1107, 13141]; p=0.021 | 33057 [15550, inf]; p=0.005 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 | inf [inf, inf]; p=0.000 |
+
+
+### K=3, eps=5%: run-length-optimised TTS99 in ms, median over instances [95% bootstrap CI incl. re-selection of run length]; (best effort factor, per-run success p, per-run time ms)
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 100 | 3310 [798, inf] (x1, p=0.005, 2 ms) | 7415 [4146, 20551] (x16, p=0.135, 231 ms) | inf [inf, inf] (x0.25, p=0.000, 8 ms) | inf [inf, inf] (x0.25, p=0.000, 14 ms) | inf [7166, inf] (x0.17, p=0.000, 25 ms) | inf [inf, inf] (x0.17, p=0.000, 31 ms) |
+| 200 | inf [inf, inf] (x0.25, p=0.000, 2 ms) | 22466 [10527, inf] (x16, p=0.100, 517 ms) | inf [inf, inf] (x0.25, p=0.000, 16 ms) | inf [inf, inf] (x0.25, p=0.000, 28 ms) | inf [inf, inf] (x0.17, p=0.000, 45 ms) | inf [inf, inf] (x0.17, p=0.000, 57 ms) |
+| 500 | inf [inf, inf] (x0.25, p=0.000, 11 ms) | inf [inf, inf] (x0.25, p=0.000, 25 ms) | inf [inf, inf] (x0.25, p=0.000, 33 ms) | inf [inf, inf] (x0.25, p=0.000, 60 ms) | inf [inf, inf] (x0.17, p=0.000, 110 ms) | inf [inf, inf] (x0.17, p=0.000, 145 ms) |
+
+### K=3, eps=2%: run-length-optimised TTS99 in ms, median over instances [95% bootstrap CI incl. re-selection of run length]; (best effort factor, per-run success p, per-run time ms)
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 100 | inf [2807, inf] (x0.25, p=0.000, 1 ms) | 23153 [11122, inf] (x16, p=0.036, 231 ms) | inf [inf, inf] (x0.25, p=0.000, 8 ms) | inf [inf, inf] (x0.25, p=0.000, 14 ms) | inf [inf, inf] (x0.17, p=0.000, 25 ms) | inf [inf, inf] (x0.17, p=0.000, 31 ms) |
+| 200 | inf [inf, inf] (x0.25, p=0.000, 2 ms) | inf [inf, inf] (x0.25, p=0.000, 9 ms) | inf [inf, inf] (x0.25, p=0.000, 16 ms) | inf [inf, inf] (x0.25, p=0.000, 28 ms) | inf [inf, inf] (x0.17, p=0.000, 45 ms) | inf [inf, inf] (x0.17, p=0.000, 57 ms) |
+| 500 | inf [inf, inf] (x0.25, p=0.000, 11 ms) | inf [inf, inf] (x0.25, p=0.000, 25 ms) | inf [inf, inf] (x0.25, p=0.000, 33 ms) | inf [inf, inf] (x0.25, p=0.000, 60 ms) | inf [inf, inf] (x0.17, p=0.000, 110 ms) | inf [inf, inf] (x0.17, p=0.000, 145 ms) |
+
+### K=3: median single-run gap to best-known (%) by effort factor (per-run time in ms)
+
+
+**n=100**
+
+| solver | x0.2500 | x1.0000 | x4.0000 | x16.0000 |
+|---|---|---|---|---|
+| Tabu (factors 0.25,1,4,16) | 19.0% (1 ms) | 16.7% (2 ms) | 14.8% (9 ms) | 13.3% (37 ms) |
+| SA-native (factors 0.25,1,4,16) | 21.6% (4 ms) | 17.2% (15 ms) | 12.6% (58 ms) | 9.8% (231 ms) |
+| SA-QUBO (factors 0.25,1,4,16) | 64.4% (8 ms) | 52.6% (32 ms) | 45.0% (125 ms) | 38.8% (495 ms) |
+| PT-QUBO (factors 0.25,1,4,16) | 78.4% (14 ms) | 62.2% (52 ms) | 49.9% (205 ms) | 41.2% (820 ms) |
+| bSB (factors 0.17,0.33,1,2) | 25.0% (25 ms) | 17.2% (48 ms) | 11.9% (142 ms) | 9.5% (280 ms) |
+| dSB (factors 0.17,0.33,1,2) | 52.0% (31 ms) | 44.5% (62 ms) | 36.8% (177 ms) | 33.8% (353 ms) |
+
+**n=200**
+
+| solver | x0.2500 | x1.0000 | x4.0000 | x16.0000 |
+|---|---|---|---|---|
+| Tabu (factors 0.25,1,4,16) | 24.1% (2 ms) | 23.1% (8 ms) | 21.1% (31 ms) | 20.2% (124 ms) |
+| SA-native (factors 0.25,1,4,16) | 22.9% (9 ms) | 18.0% (34 ms) | 13.8% (133 ms) | 9.7% (517 ms) |
+| SA-QUBO (factors 0.25,1,4,16) | 63.5% (16 ms) | 53.1% (63 ms) | 46.2% (253 ms) | 40.0% (1011 ms) |
+| PT-QUBO (factors 0.25,1,4,16) | 79.0% (28 ms) | 64.9% (106 ms) | 52.5% (414 ms) | 45.9% (1658 ms) |
+| bSB (factors 0.17,0.33,1,2) | 26.9% (45 ms) | 18.9% (89 ms) | 13.3% (262 ms) | 12.0% (527 ms) |
+| dSB (factors 0.17,0.33,1,2) | 53.7% (57 ms) | 46.6% (114 ms) | 39.9% (334 ms) | 35.6% (676 ms) |
+
+**n=500**
+
+| solver | x0.2500 | x1.0000 | x4.0000 | x16.0000 |
+|---|---|---|---|---|
+| Tabu (factors 0.25,1,4,16) | 28.8% (11 ms) | 28.4% (44 ms) | 28.8% (176 ms) | 28.1% (695 ms) |
+| SA-native (factors 0.25,1,4,16) | 20.5% (25 ms) | 16.2% (96 ms) | 12.8% (379 ms) | 9.4% (1492 ms) |
+| SA-QUBO (factors 0.25,1,4,16) | 59.8% (33 ms) | 51.3% (132 ms) | 44.5% (526 ms) | 38.6% (2117 ms) |
+| PT-QUBO (factors 0.25,1,4,16) | 79.5% (60 ms) | 66.3% (224 ms) | 55.0% (880 ms) | 46.8% (3558 ms) |
+| bSB (factors 0.17,0.33,1,2) | 27.6% (110 ms) | 19.4% (220 ms) | 14.4% (638 ms) | 13.1% (1286 ms) |
+| dSB (factors 0.17,0.33,1,2) | 54.1% (146 ms) | 45.9% (297 ms) | 38.7% (871 ms) | 34.7% (1689 ms) |
+
+/home/claude/qi/paper_run/analyse_sweep.py:90: UserWarning: No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+  ax.grid(alpha=.3, which="both"); ax.legend(fontsize=8); fig.tight_layout(); fig.savefig(f"figures/sweep_K{K}_n{n}_eps{int(eps)}.pdf"); plt.close(fig)
+
+### K=4, eps=5%: run-length-optimised TTS99 in ms, median over instances [95% bootstrap CI incl. re-selection of run length]; (best effort factor, per-run success p, per-run time ms)
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 200 | 2636 [1262, 11422] (x1, p=0.017, 10 ms) | 1736 [573, 4392] (x16, p=0.756, 570 ms) | inf [inf, inf] (x0.25, p=0.000, 17 ms) | inf [inf, inf] (x0.25, p=0.000, 30 ms) | inf [inf, inf] (x0.17, p=0.000, 61 ms) | inf [inf, inf] (x0.17, p=0.000, 84 ms) |
+
+### K=4, eps=2%: run-length-optimised TTS99 in ms, median over instances [95% bootstrap CI incl. re-selection of run length]; (best effort factor, per-run success p, per-run time ms)
+
+| n | Tabu | SA-native | SA-QUBO | PT-QUBO | bSB | dSB |
+|---|---|---|---|---|---|---|
+| 200 | inf [23521, inf] (x0.25, p=0.000, 3 ms) | inf [22580, inf] (x0.25, p=0.000, 9 ms) | inf [inf, inf] (x0.25, p=0.000, 17 ms) | inf [inf, inf] (x0.25, p=0.000, 30 ms) | inf [inf, inf] (x0.17, p=0.000, 61 ms) | inf [inf, inf] (x0.17, p=0.000, 84 ms) |
+
+### K=4: median single-run gap to best-known (%) by effort factor (per-run time in ms)
+
+
+**n=200**
+
+| solver | x0.2500 | x1.0000 | x4.0000 | x16.0000 |
+|---|---|---|---|---|
+| Tabu (factors 0.25,1,4,16) | 11.4% (3 ms) | 10.1% (10 ms) | 8.5% (38 ms) | 6.8% (153 ms) |
+| SA-native (factors 0.25,1,4,16) | 11.7% (9 ms) | 8.7% (36 ms) | 6.6% (144 ms) | 4.6% (570 ms) |
+| SA-QUBO (factors 0.25,1,4,16) | 88.9% (17 ms) | 74.8% (67 ms) | 63.7% (268 ms) | 58.1% (1060 ms) |
+| PT-QUBO (factors 0.25,1,4,16) | 114.4% (30 ms) | 92.9% (116 ms) | 74.5% (445 ms) | 63.6% (1785 ms) |
+| bSB (factors 0.17,0.33,1,2) | 35.7% (61 ms) | 23.1% (119 ms) | 12.2% (355 ms) | 9.7% (693 ms) |
+| dSB (factors 0.17,0.33,1,2) | 106.4% (84 ms) | 95.7% (171 ms) | 77.1% (502 ms) | 64.7% (1013 ms) |
+
