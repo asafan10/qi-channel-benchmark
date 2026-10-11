@@ -1,0 +1,26 @@
+{
+ "1000": {
+  "best": 13333.0,
+  "median": 13329.0,
+  "distinct_cuts": 16,
+  "mean_hamming": 0.27877116935483875
+ },
+ "3000": {
+  "best": 13331.0,
+  "median": 13304.0,
+  "distinct_cuts": 7,
+  "mean_hamming": 0.23065322580645162
+ },
+ "10000": {
+  "best": 13330.0,
+  "median": 13302.0,
+  "distinct_cuts": 5,
+  "mean_hamming": 0.21519858870967742
+ },
+ "30000": {
+  "best": 13303.0,
+  "median": 13302.0,
+  "distinct_cuts": 2,
+  "mean_hamming": 0.010153225806451604
+ }
+}
