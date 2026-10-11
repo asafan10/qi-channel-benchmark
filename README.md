@@ -41,6 +41,7 @@ All instances are regenerated from their seeds (`bench_ran_qubo.make_instance`),
 | Section 5.11 (sign of the field: 15 small instances solved by enumeration, field as in Eq. (19) and flipped) | `field_sign_check.py` | `results/field_sign_check.json` | `docx_work/r9_edits.py` |
 | Sections 5.8, 5.11 and 6.2 (round-3 probes: A bSB started from the semidefinite rounding; B heated bSB, field scale, replica count; C order of the repair; D replica diversity on G22) | `bench_round3.py A`, `B`, `C`, `D` | `results/round3_A.json` … `round3_D.json` | `summarise_round3.py` → `results/round3_summary.json`; `docx_work/r9_edits.py` |
 | Figure 4 (full protocol on the irregular layout) | — | `results/sigma03.json` | `plot_sigma03.py` → `figures/sigma03_matched.png` |
+| Section 5.6 (why Tables 7 and 9 differ at 100 s on seeds 0-4) | — | `paper_run/longrun_K3.jsonl`, `paper_run/sweep_K3.jsonl`, `results/hybrid_K3.jsonl` | `table7_vs_table9.py` → `results/table7_vs_table9.json` |
 | Section 5.9 (robustness of the paired tests: cross-fitted effort, raw-cost and bound-normalised differences) | `run_sdp200_more.py 3`, `run_sdp200_more.py 4` (bounds for seeds 5-29) | `results/sdp_rig_p6.jsonl` | `analyse_hybrid.py`, `analyse_sigma.py` |
 | Table B7 (raw costs, paired differences with bootstrap intervals) | — | — | `analyse_hybrid.py` → `results/robust.json` |
 | Table B5 (path-loss exponent and interference radius) | `bench_round5.py` part C | `results/eta_dmax.jsonl` | `docx_work/r5_edits.py` |
