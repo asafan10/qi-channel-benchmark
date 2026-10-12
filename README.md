@@ -40,6 +40,8 @@ All instances are regenerated from their seeds (`bench_ran_qubo.make_instance`),
 | Section 5.11, Table B8 (planted colourings: our bSB, the SB package, native SA) | `bench_round8.py P`, `bench_round8q.py` | `results/planted.jsonl`, `results/planted_small.jsonl` | `docx_work/r6_edits.py` |
 | Section 5.11 (sign of the field: 15 small instances solved by enumeration, field as in Eq. (19) and flipped) | `field_sign_check.py` | `results/field_sign_check.json` | `docx_work/r9_edits.py` |
 | Sections 5.8, 5.11 and 6.2 (round-3 probes: A bSB started from the semidefinite rounding; B heated bSB, field scale, replica count; C order of the repair; D replica diversity on G22) | `bench_round3.py A`, `B`, `C`, `D` | `results/round3_A.json` … `round3_D.json` | `summarise_round3.py` → `results/round3_summary.json`; `docx_work/r9_edits.py` |
+| Section 5.9 (reference bias at every budget: tests against the reference without native SA and on raw costs, regular and irregular layouts) | — | as Tables 13 and 15 | run `analyse_hybrid.py` first, then `nosa_ref_check.py` → `results/nosa_ref_check.json` |
+| Section 5.7 (basis of the 2-point reading rule: bootstrap half-widths of Table 7) | — | `paper_run/*.jsonl` | in `paper_run/`: `two_point_rule.py` → `results/two_point_rule.json` |
 | Figures 1 and 2 (matched wall-clock, P4; same computation as Table 7) | — | `paper_run/*.jsonl` | in `paper_run/`: `plot_matched_ieee.py 3`, `plot_matched_ieee.py 4` → `figures/fig_K3.png`, `figures/fig_K4.png` |
 | Figure 4 (full protocol on the irregular layout) | — | `results/sigma03.json` | `plot_sigma03.py` → `figures/sigma03_matched.png` |
 | Section 5.11 (initial amplitude of the oscillators: replica collapse on G22, diversity on the irregular layout) | `bench_amp.py G`, `bench_amp.py L` | `results/amp_G.json`, `results/amp_L.json` | `docx_work/r9_edits.py` |
@@ -68,7 +70,7 @@ Re-running the experiments: `bench_hybrid.py 3 200,500 results/hybrid_K3.jsonl 0
 
 ## Manuscript build
 
-`manuscript/` holds the submitted manuscript and its Supplementary Information as Word files and as Markdown, so the quoted numbers can be checked without Word.
+`manuscript/` holds the submitted manuscript and its Supplementary Information (Sections S1–S13, including the former Appendix B) as Word files and as Markdown, so the quoted numbers can be checked without Word.
 
 `docx_work/` contains the scripts that compute every number quoted in the text from the raw results and assemble the manuscript. They edit the original draft, `docx_work/orig.docx`, which is included so that they run end to end:
 
