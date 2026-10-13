@@ -1,0 +1,12 @@
+(CVXPY) Oct 13 07:14:45 AM: Encountered unexpected exception importing solver HIGHS:
+ImportError('/usr/local/lib/python3.13/dist-packages/highspy/_core.cpython-313-x86_64-linux-gnu.so: undefined symbol: _ZN5Highs13releaseMemoryEv')
+K2B 0.15 0 240.228 14.8
+K2B 0.15 1 234.968 12.7
+K2B 0.15 2 239.95 13.4
+K2B 0.15 3 240.419 11.9
+K2B 0.15 4 239.13 12.2
+K2B 0.3 0 293.255 33.5
+K2B 0.3 1 281.975 36.6
+K2B 0.3 2 279.146 23.4
+K2B 0.3 3 291.422 21.3
+K2B 0.3 4 291.265 20.4
