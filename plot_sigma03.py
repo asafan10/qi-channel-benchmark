@@ -26,7 +26,7 @@ for k, (a, c, mk, lab, dx) in enumerate((("SA-tuned", "C5", "D", "tuned SA minus
                 ms=4, capsize=2, lw=1.0, label=lab)
 a2.axhspan(-0.5, 0.5, color="grey", alpha=.12, lw=0); a2.axhline(0, color="k", lw=0.8)
 for y in (-0.5, 0.5): a2.axhline(y, color="grey", lw=0.9, ls=":")
-a2.text(1.0, 0.53, "equivalence margin ±0.5 point", fontsize=7, color="grey")
+a2.text(1.0, 0.54, "equivalence margin ±0.5 point", fontsize=8, color="0.25")
 a2.set_xscale("log"); a2.set_xlabel("wall-clock budget T (s)"); a2.set_ylabel("median paired difference (points)"); a2.set_ylim(-0.75, 0.75)
 a2.grid(alpha=.3, which="both"); a2.legend(fontsize=7, frameon=False, loc="lower left"); a2.set_title("(b) negative favours native SA", fontsize=8)
 fig.tight_layout(w_pad=1.2); fig.savefig("figures/sigma03_matched.pdf"); fig.savefig("figures/sigma03_matched.png", dpi=600)

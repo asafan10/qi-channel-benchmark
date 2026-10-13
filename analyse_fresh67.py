@@ -90,14 +90,14 @@ STY = {"SA-tuned": ("native SA (tuned $T_0$)", "#1b6ca8", "-"), "SA-frozen": ("n
 for K, sets, fn in ((3, [(3, 200), (3, 500)], "fig_K3"), (4, [(4, 200)], "fig_K4")):
     sets = [s for s in sets if f"{s[0]}_{s[1]}" in out["table7"]]
     if not sets: continue
-    fig, axs = plt.subplots(1, len(sets), figsize=(3.45 * len(sets) if len(sets) > 1 else 4.6, 2.9 if len(sets) > 1 else 2.9), squeeze=False)
+    fig, axs = plt.subplots(1, len(sets), sharey=True, figsize=(3.45 * len(sets) if len(sets) > 1 else 4.6, 2.9 if len(sets) > 1 else 2.9), squeeze=False)
     for ax, (k, n) in zip(axs[0], sets):
         t7 = out["table7"][f"{k}_{n}"]
         for sv, d in t7.items():
             xs = [T for T in BUD if d.get(str(T))]; lab, col, ls = STY[sv]
             ax.plot(xs, [d[str(T)]["gap"] for T in xs], ls, color=col, marker="o", ms=3, lw=1.2, label=lab)
             ax.fill_between(xs, [d[str(T)]["lo"] for T in xs], [d[str(T)]["hi"] for T in xs], color=col, alpha=0.12, lw=0)
-        ax.set_xscale("log"); ax.set_xlabel("Wall-clock budget (s)", fontsize=8); ax.set_ylabel("Gap to best-known (%)", fontsize=8)
+        ax.set_xscale("log"); ax.set_xlabel("Wall-clock budget (s)", fontsize=8); (ax.set_ylabel("Gap to best-known (%)", fontsize=8) if ax is axs[0][0] else None)
         ax.set_title(f"$K = {k}$, $n = {n}$", fontsize=9); ax.tick_params(labelsize=7); ax.grid(alpha=0.3, lw=0.5)
     h_, l_ = axs[0][0].get_legend_handles_labels()
     fig.legend(h_, l_, loc="upper center", ncol=4 if len(sets) > 1 else 3, fontsize=6.5, frameon=False, bbox_to_anchor=(0.5, 1.0))

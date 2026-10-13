@@ -1,0 +1,12 @@
+check dt1_g0.5_c2_rho0.5 0.6 phi 0.0
+check dt1_g1_c2_rho0.25 0.6 phi 0.0
+check dt1_g1_c2_rho0.5 0.6 phi 0.0
+check dt1_g2_c2_rho0.25 0.6 phi 0.0
+check dt1_g2_c2_rho0.5 0.6 phi 0.0
+check dt1_g0.5_c2_rho0.25 6.57 phi 0.0
+check dt0.25_g0.5_c2_rho0.12 6.57 phi 1.0
+K4T eval 0 {'default|12000': np.float64(9.3), 'default|48000': np.float64(8.6), 'tuned|12000': np.float64(8.6), 'tuned|48000': np.float64(8.1)}
+K4T eval 1 {'default|12000': np.float64(7.4), 'default|48000': np.float64(8.4), 'tuned|12000': np.float64(7.5), 'tuned|48000': np.float64(8.0)}
+K4T eval 2 {'default|12000': np.float64(9.3), 'default|48000': np.float64(9.7), 'tuned|12000': np.float64(10.6), 'tuned|48000': np.float64(8.3)}
+K4T eval 3 {'default|12000': np.float64(8.2), 'default|48000': np.float64(6.5), 'tuned|12000': np.float64(7.6), 'tuned|48000': np.float64(6.4)}
+K4T eval 4 {'default|12000': np.float64(8.8), 'default|48000': np.float64(8.3), 'tuned|12000': np.float64(9.0), 'tuned|48000': np.float64(8.2)}

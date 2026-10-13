@@ -1,0 +1,11 @@
+HEAT tune 0.0 8.67
+HEAT tune 0.01 7.68
+HEAT tune 0.03 7.1
+HEAT tune 0.06 7.23
+HEAT tune 0.1 9.27
+HEAT tune 0.2 15.38
+HEAT eval 0 {'default|3000': np.float64(11.5), 'default|12000': np.float64(12.5), 'default|48000': np.float64(12.3), 'heated|3000': np.float64(15.5), 'heated|12000': np.float64(9.8), 'heated|48000': np.float64(5.9)}
+HEAT eval 1 {'default|3000': np.float64(13.4), 'default|12000': np.float64(11.7), 'default|48000': np.float64(10.3), 'heated|3000': np.float64(15.9), 'heated|12000': np.float64(10.6), 'heated|48000': np.float64(8.3)}
+HEAT eval 2 {'default|3000': np.float64(13.6), 'default|12000': np.float64(13.2), 'default|48000': np.float64(12.5), 'heated|3000': np.float64(15.0), 'heated|12000': np.float64(13.3), 'heated|48000': np.float64(7.8)}
+HEAT eval 3 {'default|3000': np.float64(9.9), 'default|12000': np.float64(7.9), 'default|48000': np.float64(7.8), 'heated|3000': np.float64(14.4), 'heated|12000': np.float64(9.2), 'heated|48000': np.float64(6.4)}
+HEAT eval 4 {'default|3000': np.float64(16.3), 'default|12000': np.float64(15.0), 'default|48000': np.float64(14.5), 'heated|3000': np.float64(19.2), 'heated|12000': np.float64(13.9), 'heated|48000': np.float64(10.3)}
