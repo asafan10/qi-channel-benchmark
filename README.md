@@ -51,6 +51,24 @@ All instances are regenerated from their seeds (`bench_ran_qubo.make_instance`),
 | Table B7 (raw costs, paired differences with bootstrap intervals) | — | — | `analyse_hybrid.py` → `results/robust.json` |
 | Table B5 (path-loss exponent and interference radius) | `bench_round5.py` part C | `results/eta_dmax.jsonl` | `docx_work/r5_edits.py` |
 
+## Experiments added in revision (numbering of the final manuscript)
+
+The table above uses the section and table numbers of an earlier draft. The experiments below were added in revision and use the final numbering.
+
+| Result in the manuscript | Run | Raw records | Analysis |
+|---|---|---|---|
+| Tables 6, 7, S7 and Figures 1-2 (protocol P4, fresh pools on machine B) | `bench_fresh67.py` (two processes), `topup_fresh67.py` | `results/fresh67_*.jsonl` | `analyse_fresh67.py` |
+| Section 5.11, encoding controls (K = 2 Max-Cut, domain wall, per-cell penalty), Tables S17-S18 | `bench_round6.py` K2, DW, PC; `bench_round6b.py` | `results/round6_*.json`, `results/round6b_*.json` | `analyse_round6.py` |
+| Section 5.3, heated bSB and K = 4 re-tuning; Section 6.2, spectral coupling scale; polish from random plans | `bench_round7.py` C0, POL, K4T, HEAT, HEATP | `results/round7_*.json` | `analyse_round7.py` |
+| Section 6.2, decoding all replicas and best-visited states; Section 5.11, one-hot bSB at K = 2; Section 5.6, polish sweep cost; constraint-preserving bSB tuning | `bench_round9.py` REP, REP4, OH2, POLT, CPT, CPTB, CPP | `results/round9_*` | `analyse_round9.py` |
+| Section 5.3, compiled constraint-preserving bSB at matched time and on planted colourings | `bench_round10.py` NB, PL, CPPN | `results/round10_*` | `analyse_round10.py` |
+| Sections 5.2 and 5.10, breakout local search at matched time | `bench_bls.py` T7, T12 | `results/bls_*.jsonl` | `analyse_bls.py` |
+| Section 5.2, Table 7 against the reference without native SA | - | fresh P4 pools | `nosa_table7.py` |
+| Section 5.10, fixed reuse pattern against the per-instance best pattern | `fixed_reuse.py` | - | `results/fixed_reuse.json` |
+| Section 5.7, minimal reproduction of the SB package collapse | `pkg_collapse_repro.py` | - | - |
+
+The text of these results is written into the manuscript by `docx_work/build_epj.py` from `docx_work/r39_results.json`, which `analyse_round9.py`, `analyse_round10.py` and `analyse_bls.py` produce in that order.
+
 The best-known reference used for every gap is built by `refs.build_ref()` from all runs in `results/` and `paper_data/`; `build_ref(no_native_sa=True)` gives the weaker reference of Section 5.9.
 
 ## Reproducing the main statistics

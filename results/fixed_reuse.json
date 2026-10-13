@@ -1,0 +1,41 @@
+{
+ "3_200": {
+  "fixed_index": 4,
+  "best_mean": -1.235082619590348,
+  "fixed_mean": -1.235082619590348,
+  "diff_max": 0.0,
+  "same": 30,
+  "n": 30,
+  "bound_best": 0.4059812802817664,
+  "bound_fixed": 0.4059812802817664,
+  "n_bound": 5
+ },
+ "3_500": {
+  "fixed_index": 4,
+  "best_mean": -3.5999456234019394,
+  "fixed_mean": -3.5999456234019394,
+  "diff_max": 0.0,
+  "same": 30,
+  "n": 30,
+  "bound_best": 0.5613211316543953,
+  "bound_fixed": 0.5613211316543953,
+  "n_bound": 5
+ },
+ "4_200": {
+  "fixed_index": 0,
+  "best_mean": -1.301507566930295,
+  "fixed_mean": -1.301507566930295,
+  "diff_max": 0.0,
+  "same": 30,
+  "n": 30,
+  "bound_best": 9.62571726315078,
+  "bound_fixed": 9.62571726315078,
+  "n_bound": 5
+ },
+ "irregular_0.3": {
+  "same": 30,
+  "n": 30,
+  "diff_max": 0.0,
+  "diff_median": 0.0
+ }
+}
