@@ -1,0 +1,214 @@
+{
+ "rows": [
+  {
+   "seed": 0,
+   "labels": "row",
+   "ref": 47.626333930349155,
+   "runs": [
+    {
+     "default": 51.59688308299268,
+     "phi_default": 1.0,
+     "vis_f": 48.50390987745172,
+     "vis_phi": 0.015,
+     "vis_step": 6050
+    },
+    {
+     "default": 51.76948006556063,
+     "phi_default": 1.0,
+     "vis_f": 48.31053764812986,
+     "vis_phi": 0.005,
+     "vis_step": 6000
+    }
+   ]
+  },
+  {
+   "seed": 0,
+   "labels": "perm",
+   "ref": 47.626333930349155,
+   "runs": [
+    {
+     "default": 52.09448328645549,
+     "phi_default": 1.0,
+     "vis_f": 52.09448328645549,
+     "vis_phi": 0.995,
+     "vis_step": 8600
+    },
+    {
+     "default": 51.254224921824544,
+     "phi_default": 1.0,
+     "vis_f": 51.254224921824544,
+     "vis_phi": 1.0,
+     "vis_step": 8600
+    }
+   ]
+  },
+  {
+   "seed": 1,
+   "labels": "row",
+   "ref": 46.124783548086974,
+   "runs": [
+    {
+     "default": 50.224945512559685,
+     "phi_default": 1.0,
+     "vis_f": 45.93393626156248,
+     "vis_phi": 0.01,
+     "vis_step": 6100
+    },
+    {
+     "default": 49.611643750171105,
+     "phi_default": 1.0,
+     "vis_f": 45.998858033330734,
+     "vis_phi": 0.02,
+     "vis_step": 6550
+    }
+   ]
+  },
+  {
+   "seed": 1,
+   "labels": "perm",
+   "ref": 46.124783548086974,
+   "runs": [
+    {
+     "default": 50.6647662574583,
+     "phi_default": 1.0,
+     "vis_f": 50.6647662574583,
+     "vis_phi": 1.0,
+     "vis_step": 8650
+    },
+    {
+     "default": 50.138396491270896,
+     "phi_default": 1.0,
+     "vis_f": 50.138396491270896,
+     "vis_phi": 0.995,
+     "vis_step": 8650
+    }
+   ]
+  },
+  {
+   "seed": 2,
+   "labels": "row",
+   "ref": 46.943963022975694,
+   "runs": [
+    {
+     "default": 50.855670598186265,
+     "phi_default": 1.0,
+     "vis_f": 47.71802711560014,
+     "vis_phi": 0.015,
+     "vis_step": 6150
+    },
+    {
+     "default": 51.84672992479873,
+     "phi_default": 1.0,
+     "vis_f": 47.554485930386356,
+     "vis_phi": 0.035,
+     "vis_step": 6050
+    }
+   ]
+  },
+  {
+   "seed": 2,
+   "labels": "perm",
+   "ref": 46.943963022975694,
+   "runs": [
+    {
+     "default": 52.50595282441548,
+     "phi_default": 1.0,
+     "vis_f": 52.50595282441548,
+     "vis_phi": 1.0,
+     "vis_step": 8650
+    },
+    {
+     "default": 52.10378298434995,
+     "phi_default": 1.0,
+     "vis_f": 52.076559952654755,
+     "vis_phi": 0.995,
+     "vis_step": 8600
+    }
+   ]
+  },
+  {
+   "seed": 3,
+   "labels": "row",
+   "ref": 47.736187816094635,
+   "runs": [
+    {
+     "default": 52.02204993151412,
+     "phi_default": 1.0,
+     "vis_f": 47.27859175888882,
+     "vis_phi": 0.015,
+     "vis_step": 6200
+    },
+    {
+     "default": 51.37536729996115,
+     "phi_default": 1.0,
+     "vis_f": 47.58563506653728,
+     "vis_phi": 0.005,
+     "vis_step": 6050
+    }
+   ]
+  },
+  {
+   "seed": 3,
+   "labels": "perm",
+   "ref": 47.736187816094635,
+   "runs": [
+    {
+     "default": 52.10377472316279,
+     "phi_default": 1.0,
+     "vis_f": 52.10377472316279,
+     "vis_phi": 1.0,
+     "vis_step": 8600
+    },
+    {
+     "default": 51.15219431524403,
+     "phi_default": 1.0,
+     "vis_f": 51.15219431524403,
+     "vis_phi": 1.0,
+     "vis_step": 8550
+    }
+   ]
+  },
+  {
+   "seed": 4,
+   "labels": "row",
+   "ref": 47.61611392213566,
+   "runs": [
+    {
+     "default": 51.86782955532862,
+     "phi_default": 1.0,
+     "vis_f": 48.07352263849222,
+     "vis_phi": 0.005,
+     "vis_step": 6000
+    },
+    {
+     "default": 51.76558476593117,
+     "phi_default": 1.0,
+     "vis_f": 48.300397947635695,
+     "vis_phi": 0.035,
+     "vis_step": 6550
+    }
+   ]
+  },
+  {
+   "seed": 4,
+   "labels": "perm",
+   "ref": 47.61611392213566,
+   "runs": [
+    {
+     "default": 51.506831368518384,
+     "phi_default": 1.0,
+     "vis_f": 51.506831368518384,
+     "vis_phi": 1.0,
+     "vis_step": 8650
+    },
+    {
+     "default": 52.23899262448035,
+     "phi_default": 1.0,
+     "vis_f": 52.23899262448035,
+     "vis_phi": 1.0,
+     "vis_step": 8600
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+POLT 0 {'seed': 0, 'frozen_from_random': {'t': 2.8783309099999315, 'acc': 0.12387}, 'polish_from_bsb': {'t': 2.0217571080002017, 'acc': 0.0160975}}
+POLT 1 {'seed': 1, 'frozen_from_random': {'t': 2.7184640369996487, 'acc': 0.12896}, 'polish_from_bsb': {'t': 2.3247470920000524, 'acc': 0.0087775}}
+POLT 2 {'seed': 2, 'frozen_from_random': {'t': 2.591710445999979, 'acc': 0.12}, 'polish_from_bsb': {'t': 2.007764724000026, 'acc': 0.011675}}
+POLT 3 {'seed': 3, 'frozen_from_random': {'t': 2.686713220999991, 'acc': 0.12248}, 'polish_from_bsb': {'t': 2.089691015000426, 'acc': 0.00847}}
+POLT 4 {'seed': 4, 'frozen_from_random': {'t': 2.590832318000139, 'acc': 0.122045}, 'polish_from_bsb': {'t': 1.9557183010001609, 'acc': 0.009295}}
