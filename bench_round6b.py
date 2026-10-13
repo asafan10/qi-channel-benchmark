@@ -5,8 +5,8 @@
       layout, K = 3), whose gap is close to that of bSB, are stored for analyse_round6.py.
  TUNE the penalty scales of the domain-wall encoding and of the per-cell penalty re-chosen on three held-out instances (seeds
       100-102) instead of one.
- TIME per-run time of native SA (64,000 sweeps) and bSB (12,000 steps) with one process and with two concurrent processes on the
-      two cores of machine B (run this part alone).
+ TIME per-run time of native SA (64,000 sweeps, 20 runs per process) and bSB (12,000 steps, 10 batches per process) with one process and
+      with two concurrent processes on the two cores of machine B, on three instances (K = 3 at 200 and 500 cells, K = 4 at 200; run alone).
 Usage: python3 bench_round6b.py K2B|MG|TUNE|TIME -> results/round6b_<part>.json"""
 import sys, json, time, subprocess, numpy as np
 import exp_common
@@ -71,19 +71,23 @@ if part == "TUNE":
         sc[rho] = float(np.mean(v))
     res["pc"]["3"] = sc; print("TUNE pc", sc, flush=True); out = res
 if part == "TIME":
-    if len(sys.argv) > 2:          # worker: time 20 SA runs and 10 bSB batches on one instance
-        warm(3); W, csr, a, J, lam, jj = setup(n, 0, 3); rng = np.random.default_rng(int(sys.argv[2])); ts = {"sa": [], "bsb": []}
+    # worker: python3 bench_round6b.py TIME K n seed rngseed -> per-run times of 20 native SA runs (64,000 sweeps) and 10 bSB batches (12,000 steps)
+    if len(sys.argv) > 3:
+        K_, n_, s_ = int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]); warm(K_); W, csr, a, J, lam, jj = setup(n_, s_, K_)
+        rng = np.random.default_rng(int(sys.argv[5])); ts = {"sa": [], "bsb": []}
         for _ in range(20):
-            t0 = time.perf_counter(); sa_native(rng.integers(0, 3, n), 3, *csr, 2.0, 0.02, 64000, int(rng.integers(1, 2**31 - 1))); ts["sa"].append(time.perf_counter() - t0)
+            t0 = time.perf_counter(); sa_native(rng.integers(0, K_, n_), K_, *csr, 2.0, 0.02, 64000, int(rng.integers(1, 2**31 - 1))); ts["sa"].append(time.perf_counter() - t0)
         for _ in range(10):
             t0 = time.perf_counter(); sb_batch(a, J, 12000, 8, rng, False); ts["bsb"].append(time.perf_counter() - t0)
         print(json.dumps(ts)); sys.exit(0)
-    def run(k):
-        ps = [subprocess.Popen([sys.executable, "bench_round6b.py", "TIME", str(i)], stdout=subprocess.PIPE, text=True) for i in range(k)]
+    def run(k, inst):
+        ps = [subprocess.Popen([sys.executable, "bench_round6b.py", "TIME", *map(str, inst), str(100 + i)], stdout=subprocess.PIPE, text=True) for i in range(k)]
         return [json.loads(p.communicate()[0].strip().splitlines()[-1]) for p in ps]
-    one = run(1); two = run(2)
-    summ = lambda L, key: dict(mean=float(np.mean([x for d in L for x in d[key]])), sd=float(np.std([x for d in L for x in d[key]], ddof=1)),
-                               cv=float(np.std([x for d in L for x in d[key]], ddof=1) / np.mean([x for d in L for x in d[key]])))
-    out = {"one": {k: summ(one, k) for k in ("sa", "bsb")}, "two": {k: summ(two, k) for k in ("sa", "bsb")}}
-    print(json.dumps(out, indent=1))
+    def summ(L, key):
+        x = np.array([v for d in L for v in d[key]]); return dict(n_runs=int(len(x)), mean=float(x.mean()), sd=float(x.std(ddof=1)), cv=float(x.std(ddof=1) / x.mean()))
+    out = {}
+    for inst in ((3, 200, 0), (3, 500, 0), (4, 200, 0)):
+        one = run(1, inst); two = run(2, inst)
+        out["%d_%d_%d" % inst] = {"one": {k: summ(one, k) for k in ("sa", "bsb")}, "two": {k: summ(two, k) for k in ("sa", "bsb")}}
+        print(inst, json.dumps(out["%d_%d_%d" % inst]), flush=True)
 json.dump(out, open(f"results/round6b_{part}.json", "w"), indent=1)
