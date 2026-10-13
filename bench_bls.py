@@ -1,4 +1,4 @@
-"""Breakout local search (BLS) [Benlic and Hao 2013, as adapted to max-k-cut by Ma and Hao 2017] as a state-of-the-art
+"""Breakout local search (BLS) [Benlic and Hao 2013, published for Max-Cut; adapted here to K channels] as a state-of-the-art
 classical baseline at matched wall-clock time. Moves change the channel of one cell; the local search is steepest descent over all
 (cell, channel) moves; a local optimum is perturbed by L moves that are either directed (best non-tabu move, tabu tenure drawn from
 [3, n/10], aspiration by the best cost) or random. L starts at L0 = max(2, 0.01 n) and grows by one each time the search returns to
