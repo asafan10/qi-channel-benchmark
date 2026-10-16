@@ -8,7 +8,8 @@ applied. These are the published default settings; we did not tune them.
 Runs are anytime: the best cost found by 1, 3, 10, 30 and 100 s of wall-clock time is recorded in one 100 s run from a random plan.
  T7   the instances of Table 7 (K = 3: 200, 500 cells; K = 4: 200 cells; seeds 0-4), three runs each  -> results/bls_T7.jsonl
  T12  the 30 irregular instances of Table 12 (jitter 0.3, K = 3, 200 cells), two runs each         -> results/bls_T12.jsonl
-Usage: python3 bench_bls.py T7|T12 a-b [K n]"""
+ T12K4 the same layouts at K = 4 (the instances of bench_sigma_k4.py), two runs each               -> results/bls_T12_K4.jsonl
+Usage: python3 bench_bls.py T7|T12|T12K4 a-b [K n]"""
 import sys, os, json, math, time, numpy as np
 from numba import njit
 from exp_common import *
@@ -113,11 +114,12 @@ if __name__ == "__main__":
             W = make_instance(n, seed, K); csr = csr_from_W(W)
             runs = [bls_run(W, csr, K, 23000 + 100 * seed + r) for r in range(3)]
             append_jsonl(jl, dict(K=K, n=n, seed=seed, runs=runs)); print("T7", K, n, seed, [r["100"] for r in runs], flush=True)
-    else:
+    else:                                             # T12: K = 3; T12K4: the K = 4 instances of bench_sigma_k4.py
         from bench_jitter import make_layout
-        jl = "results/bls_T12.jsonl"; done = {json.loads(l)["seed"] for l in open(jl)} if os.path.exists(jl) else set()
+        K = 4 if part == "T12K4" else 3; warm(K)
+        jl = "results/bls_T12_K4.jsonl" if K == 4 else "results/bls_T12.jsonl"; done = {json.loads(l)["seed"] for l in open(jl)} if os.path.exists(jl) else set()
         for seed in range(a_, b_):
             if seed in done: continue
-            W = make_layout(200, seed, 3, 0.3); csr = csr_from_W(W)
-            runs = [bls_run(W, csr, 3, 24000 + 100 * seed + r) for r in range(2)]
-            append_jsonl(jl, dict(K=3, n=200, seed=seed, runs=runs)); print("T12", seed, [r["100"] for r in runs], flush=True)
+            W = make_layout(200, seed, K, 0.3); csr = csr_from_W(W)
+            runs = [bls_run(W, csr, K, (25000 if K == 4 else 24000) + 100 * seed + r) for r in range(2)]
+            append_jsonl(jl, dict(K=K, n=200, seed=seed, runs=runs)); print(part, seed, [r["100"] for r in runs], flush=True)
