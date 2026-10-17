@@ -75,27 +75,40 @@ src = open("analyse_sigma_ext.py").read(); ns = {"__name__": "defs"}
 with contextlib.redirect_stdout(io.StringIO()): exec(src[:src.index('OUT = {"seeds"')], ns)
 REF12 = ns["REF"]; SEEDS = list(ns["SEEDS"]); _, per = ns["table"](REF12)
 tests = []; rows_b = []; res = {}
-for which, name in (("sqa", "SQA"), ("saq", "SA-QUBO")):
+import os as _os
+SRC_B = [("results/irr_sqa_K3.jsonl", "SQA", "regular"), ("results/irr_saq_K3.jsonl", "SA-QUBO", "regular"),
+         ("results/irrpool_sqa_K3.jsonl", "SQA", "irregular"), ("results/irrpool_saq_K3.jsonl", "SA-QUBO", "irregular")]
+for path, name, tuned in SRC_B:
+    if not _os.path.exists(path): continue
     rr = {}
-    for l in open(f"results/irr_{which}_K3.jsonl"): r = json.loads(l); rr[r["seed"]] = r
+    for l in open(path): r = json.loads(l); rr[r["seed"]] = r
     seeds = [s for s in SEEDS if s in rr]; idx = [SEEDS.index(s) for s in seeds]
+    if len(seeds) < len(SEEDS): print("incomplete:", path, len(seeds)); continue
     P_ = {s: {e: [(x["f"], x["t"]) for x in v] for e, v in rr[s]["runs"].items()} for s in seeds}
-    res[name] = dict(n=len(seeds), phi_mean=float(np.mean([x["phi"] for s in seeds for v in rr[s]["runs"].values() for x in v])), T={})
+    res[f"{name}|{tuned}"] = dict(n=len(seeds), cfg=rr[seeds[0]]["cfg"], phi_mean=float(np.mean([x["phi"] for s in seeds for v in rr[s]["runs"].values() for x in v])))
     for T in BUD:
         b = best_eff(P_, seeds, REF12, T)
         if b is None or ("SA-tuned", T) not in per: continue
         sa = np.asarray(per[("SA-tuned", T)])[idx]; dl = b[1] - sa
-        tests.append(dict(solver=name, T=T, med=float(np.median(b[1])), sa=float(np.median(sa)), effort=b[0], med_diff=float(np.median(dl)),
+        bs = np.asarray(per[("bSB", T)])[idx] if ("bSB", T) in per else None
+        tests.append(dict(solver=name, tuned=tuned, T=T, med=float(np.median(b[1])), sa=float(np.median(sa)), effort=b[0], med_diff=float(np.median(dl)),
+                          bsb=float(np.median(bs)) if bs is not None else None, wins_vs_bsb=int((b[1] < bs).sum()) if bs is not None else None,
                           wins=int((dl < 0).sum()), losses=int((dl > 0).sum()), n=len(dl), p=float(wilcoxon(dl).pvalue) if np.any(dl != 0) else 1.0))
 for t, h in zip(tests, holm([t["p"] for t in tests])): t["p_holm"] = h
+S["b_bsb_alone"] = {str(T): dict(med=float(np.median(per[("bSB", T)])), sa=float(np.median(per[("SA-tuned", T)])),
+                                 med_diff=float(np.median(np.asarray(per[("bSB", T)]) - np.asarray(per[("SA-tuned", T)]))))
+                    for T in BUD if ("bSB", T) in per and ("SA-tuned", T) in per}
 pf = lambda p: "< 0.001" if p < 0.001 else f"{p:.3f}"
 for t in tests:
-    rows_b.append([t["solver"], f"{t['T']} s", f1(t["med"]), f1(t["sa"]), f"{t['med_diff']:+.2f}".replace("-", "−"), f"{t['wins']}/{t['losses']}", pf(t["p_holm"])])
-S["b"] = dict(res=res, tests=tests, rows=rows_b, header=["Solver", "Budget", "Gap", "SA-native (tuned)", "Difference", "Lower/higher", "p"],
-              widths=[1300, 800, 1000, 1500, 1200, 1300, 1000])
+    rows_b.append([t["solver"], t["tuned"], f"{t['T']} s", f1(t["med"]), f1(t["sa"]), f1(t["bsb"]), f"{t['med_diff']:+.2f}".replace("-", "−"),
+                   f"{t['wins']}/{t['losses']}", pf(t["p_holm"])])
+S["b"] = dict(res=res, tests=tests, rows=rows_b, header=["Solver", "Tuned on", "Budget", "Gap", "SA-native (tuned)", "bSB", "Difference", "Lower/higher", "p"],
+              widths=[1100, 1000, 700, 800, 1200, 700, 1000, 1100, 800])
 A3, A4 = S["a"]["3"], S["a"]["4"]
-RB = S["b"]["res"]
+RB = S["b"]["res"]; NT = len(S["b"]["tests"])
+_it = {w: json.load(open(f"results/irrtune_{w}.json")) for w in ("saq", "sqa", "bsb", "sa")} if _os.path.exists("results/irrtune_sa.json") else None
+_ph = lambda k: f"{RB[k]['phi_mean']:.2f}" if k in RB else "–"
 json.dump(S, open("results/lowpen_summary.json", "w"), indent=1, ensure_ascii=False)
 for r in rows_a: print(r)
 for r in rows_b: print(r)
-print({k: v for k, v in res.items()}, {K: S["a"][K]["phi"] for K in ("3", "4")})
+print(res)
