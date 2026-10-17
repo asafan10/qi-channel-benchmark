@@ -9,7 +9,10 @@ Runs are anytime: the best cost found by 1, 3, 10, 30 and 100 s of wall-clock ti
  T7   the instances of Table 7 (K = 3: 200, 500 cells; K = 4: 200 cells; seeds 0-4), three runs each  -> results/bls_T7.jsonl
  T12  the 30 irregular instances of Table 12 (jitter 0.3, K = 3, 200 cells), two runs each         -> results/bls_T12.jsonl
  T12K4 the same layouts at K = 4 (the instances of bench_sigma_k4.py), two runs each               -> results/bls_T12_K4.jsonl
-Usage: python3 bench_bls.py T7|T12|T12K4 a-b [K n]"""
+ P12 K  pools for the estimator of Table 12 on the same 30 irregular instances (K = 3 or 4): 18 further runs of 30 s each,
+        anytime records at 1, 3, 10 and 30 s; with the two 100 s runs of T12/T12K4 these give pools of 20 runs for efforts of 1-30 s
+        and 2 runs for 100 s                                                                     -> results/bls_P12_K<K>.jsonl
+Usage: python3 bench_bls.py T7|T12|T12K4 a-b [K n] | P12 a-b K"""
 import sys, os, json, math, time, numpy as np
 from numba import njit
 from exp_common import *
@@ -78,7 +81,7 @@ def bls_chunk(ch, D, tabu, bch, st, ip, ix, wd, K, n_opt, seed):
     return fbest
 
 
-def bls_run(W, csr, K, seed, tmax=100.0):
+def bls_run(W, csr, K, seed, bud=BUD):
     ip, ix, wd = csr; n = W.shape[0]; rng = np.random.default_rng(seed)
     ch = rng.integers(0, K, n).astype(np.int64); D = np.zeros((n, K))
     for i in range(n):
@@ -89,10 +92,10 @@ def bls_run(W, csr, K, seed, tmax=100.0):
     while True:
         bls_chunk(ch, D, tabu, bch, st, ip, ix, wd, K, 20, int(rng.integers(1, 2**31 - 1))); k += 1
         el = time.perf_counter() - t0
-        while b < len(BUD) and el >= BUD[b]:
-            rec[str(BUD[b])] = float(interference(bch, ip, ix, wd)); b += 1
-        if b == len(BUD): break
-    assert abs(rec[str(BUD[-1])] - st[1]) < 1e-6 * max(1.0, st[1])
+        while b < len(bud) and el >= bud[b]:
+            rec[str(bud[b])] = float(interference(bch, ip, ix, wd)); b += 1
+        if b == len(bud): break
+    assert abs(rec[str(bud[-1])] - st[1]) < 1e-6 * max(1.0, st[1])
     return rec
 
 
@@ -114,6 +117,16 @@ if __name__ == "__main__":
             W = make_instance(n, seed, K); csr = csr_from_W(W)
             runs = [bls_run(W, csr, K, 23000 + 100 * seed + r) for r in range(3)]
             append_jsonl(jl, dict(K=K, n=n, seed=seed, runs=runs)); print("T7", K, n, seed, [r["100"] for r in runs], flush=True)
+    elif part == "P12":
+        from bench_jitter import make_layout
+        K = int(sys.argv[3]); warm(K); jl = f"results/bls_P12_K{K}.jsonl"
+        done = {json.loads(l)["seed"] for l in open(jl)} if os.path.exists(jl) else set()
+        if len(sys.argv) > 4 and sys.argv[4] == "redo": done = set()   # rerun under two-process load; the analysis keeps the last record per instance
+        for seed in range(a_, b_):
+            if seed in done: continue
+            W = make_layout(200, seed, K, 0.3); csr = csr_from_W(W)
+            runs = [bls_run(W, csr, K, 26000 + 1000 * K + 100 * seed + r, bud=[1, 3, 10, 30]) for r in range(18)]
+            append_jsonl(jl, dict(K=K, n=200, seed=seed, runs=runs)); print(part, K, seed, round(min(r["30"] for r in runs), 3), flush=True)
     else:                                             # T12: K = 3; T12K4: the K = 4 instances of bench_sigma_k4.py
         from bench_jitter import make_layout
         K = 4 if part == "T12K4" else 3; warm(K)
