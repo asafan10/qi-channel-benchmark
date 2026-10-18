@@ -1,0 +1,47 @@
+(CVXPY) Oct 18 02:27:40 PM: Encountered unexpected exception importing solver HIGHS:
+ImportError('/usr/local/lib/python3.13/dist-packages/highspy/_core.cpython-313-x86_64-linux-gnu.so: undefined symbol: _ZN5Highs13releaseMemoryEv')
+POLSTART 15 {'row-order': 120.2, 'greedy': 116.7, 'DSATUR': 118.0, 'SDP rounding': 99.7} 22
+POLSTART 16 {'row-order': 122.5, 'greedy': 116.2, 'DSATUR': 119.7, 'SDP rounding': 103.5} 50
+POLSTART 17 {'row-order': 115.4, 'greedy': 122.6, 'DSATUR': 127.5, 'SDP rounding': 106.4} 55
+POLSTART 18 {'row-order': 114.5, 'greedy': 115.3, 'DSATUR': 117.1, 'SDP rounding': 98.8} 25
+POLSTART 19 {'row-order': 121.6, 'greedy': 112.3, 'DSATUR': 120.5, 'SDP rounding': 99.4} 47
+POLSTART 20 {'row-order': 127.1, 'greedy': 113.6, 'DSATUR': 113.3, 'SDP rounding': 101.3} 17
+POLSTART 21 {'row-order': 122.8, 'greedy': 123.0, 'DSATUR': 125.2, 'SDP rounding': 110.6} 32
+POLSTART 22 {'row-order': 115.1, 'greedy': 116.4, 'DSATUR': 119.2, 'SDP rounding': 101.3} 20
+POLSTART 23 {'row-order': 120.7, 'greedy': 116.6, 'DSATUR': 119.5, 'SDP rounding': 102.3} 39
+POLSTART 24 {'row-order': 123.2, 'greedy': 119.7, 'DSATUR': 121.8, 'SDP rounding': 104.9} 30
+POLSTART 25 {'row-order': 132.8, 'greedy': 125.4, 'DSATUR': 125.6, 'SDP rounding': 108.8} 40
+POLSTART 26 {'row-order': 114.5, 'greedy': 121.4, 'DSATUR': 120.1, 'SDP rounding': 102.0} 32
+POLSTART 27 {'row-order': 114.8, 'greedy': 118.1, 'DSATUR': 121.3, 'SDP rounding': 101.6} 27
+POLSTART 28 {'row-order': 120.6, 'greedy': 120.1, 'DSATUR': 121.4, 'SDP rounding': 102.5} 29
+POLSTART 29 {'row-order': 117.6, 'greedy': 121.8, 'DSATUR': 121.1, 'SDP rounding': 102.8} 31
+PTPOOL 15 {'500': 44, '2000': 30, '8000': 8}
+PTPOOL 16 {'500': 50, '2000': 36, '8000': 8}
+PTPOOL 17 {'500': 46, '2000': 38, '8000': 8}
+PTPOOL 18 {'500': 46, '2000': 36, '8000': 8}
+PTPOOL 19 {'500': 46, '2000': 32, '8000': 8}
+PTPOOL 20 {'500': 46, '2000': 34, '8000': 8}
+PTPOOL 21 {'500': 48, '2000': 34, '8000': 8}
+PTPOOL 22 {'500': 46, '2000': 34, '8000': 8}
+PTPOOL 23 {'500': 46, '2000': 32, '8000': 8}
+PTPOOL 24 {'500': 50, '2000': 30, '8000': 8}
+PTPOOL 25 {'500': 46, '2000': 34, '8000': 8}
+PTPOOL 26 {'500': 48, '2000': 38, '8000': 8}
+PTPOOL 27 {'500': 44, '2000': 36, '8000': 8}
+PTPOOL 28 {'500': 42, '2000': 34, '8000': 8}
+PTPOOL 29 {'500': 52, '2000': 32, '8000': 8}
+LONGPOL 15 100.7 9.0
+LONGPOL 16 105.41 9.1
+LONGPOL 17 105.58 8.9
+LONGPOL 18 100.17 8.9
+LONGPOL 19 100.85 8.6
+LONGPOL 20 101.24 9.0
+LONGPOL 21 111.58 8.9
+LONGPOL 22 101.32 9.5
+LONGPOL 23 103.13 9.0
+LONGPOL 24 105.06 8.9
+LONGPOL 25 110.05 8.9
+LONGPOL 26 102.08 8.6
+LONGPOL 27 103.05 8.9
+LONGPOL 28 101.43 8.7
+LONGPOL 29 103.1 9.0
