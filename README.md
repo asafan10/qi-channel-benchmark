@@ -79,7 +79,7 @@ Re-running the experiments: `bench_hybrid.py 3 200,500 results/hybrid_K3.jsonl 0
 
 ## Manuscript build
 
-`manuscript/` holds the submitted manuscript and its Additional file 1 (Sections S1–S24) as Word files and as plain text, so that every quoted number can be checked without Word.
+The paper is not included in this repository; once it is published, it will be cited here by its DOI. The scripts below regenerate the manuscript and its Additional file 1 (Sections S1–S24) from the raw results.
 
 `docx_work/` contains the scripts that compute every number quoted in the text from the raw results and assemble the manuscript. They edit the original draft, `docx_work/orig.docx`, which is included so that they run end to end:
 
@@ -89,6 +89,6 @@ cd docx_work && python3 build_revised.py && python3 build_epj.py   # writes docx
 EPJ_MARK=1 EPJ_OUT=marked.docx EPJ_OUT_S=marked_S.docx python3 build_epj.py   # the same with the last edit pass marked (bold text, highlighted symbols)
 ```
 
-The text of the results is written by `build_epj.py` from `docx_work/r39_results.json` (produced by `analyse_round9.py`, `analyse_round10.py` and `analyse_bls.py`, then `combine_r43.py` and `combine_r44.py`) and by the edit passes `docx_work/r46_edits.py` to `r55_edits.py`, run in that order; `r55_edits.py` is the final pass on notation (one symbol per quantity, bold vectors and matrices, upright function names), tables and wording. Run in a clean copy of this repository, the build reproduces `manuscript/Saafan_EPJQT_manuscript.docx` and the supplement exactly.
+The text of the results is written by `build_epj.py` from `docx_work/r39_results.json` (produced by `analyse_round9.py`, `analyse_round10.py` and `analyse_bls.py`, then `combine_r43.py` and `combine_r44.py`) and by the edit passes `docx_work/r46_edits.py` to `r55_edits.py`, run in that order; `r55_edits.py` is the final pass on notation (one symbol per quantity, bold vectors and matrices, upright function names), tables and wording. The build is deterministic: run in two clean copies of this repository, it gives identical Word files. `notes/Tables_6_7_provenance.md` records Tables 6 and 7 before and after the fresh P4 run.
 
 `gpu_bsb.py` is a GPU variant of bSB that was not used for any reported result.
