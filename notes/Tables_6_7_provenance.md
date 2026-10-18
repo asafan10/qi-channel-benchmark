@@ -1,10 +1,10 @@
 # Tables 6 and 7: before and after the fresh P4 run
 
-The earlier tables come from commit ee6b953 (12 October 2026, 13:32 +03:00, the last version before the run was restarted).
-The current tables come from commit a6a9acb (13 October 2026, 04:26 +03:00), which added the fresh pools (results/fresh67_*.jsonl) and their summary.
+The earlier tables are those of 12 October 2026, 13:32 +03:00, the last version before the run was restarted; their code and data are those of commit d7b722c (12 October 2026, 08:30 +03:00), since nothing but the text changed in between.
+The current tables come from commit dc54af3 (13 October 2026, 04:26 +03:00), which added the fresh pools (results/fresh67_*.jsonl) and their summary.
 Every later commit carries the same fresh tables. The fresh run (12 October 23:56 to 13 October 03:30, machine B, two processes, one per core) used per-instance seeds, but pool sizes and the order of draws depend on measured run times, so a rerun reproduces the tables statistically, not bit for bit. An earlier attempt that stopped after one instance is kept separately (results/fresh67_aborted) and was not pooled.
 
-## Commit ee6b953
+## Before the fresh run (data of commit d7b722c)
 
 ```
 Table 6. Median single-run gap to best-known (%) and mean time per run, by effort.
@@ -33,7 +33,7 @@ Table 7. Matched wall-clock comparison according to Eq. (22).
 Expected best-of-N gap to best-known (%), native SA / untuned bSB, median over five instances, with the best effort chosen at each budget.
 ```
 
-## Commit a6a9acb
+## After the fresh run (commit dc54af3)
 
 ```
 Table 6. Median single-run gap to best-known (%) and mean time per run, by effort.
