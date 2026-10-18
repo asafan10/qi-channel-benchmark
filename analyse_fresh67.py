@@ -85,21 +85,21 @@ for K, n in SETTINGS:
 json.dump(out, open("results/fresh67_summary.json", "w"), indent=1)
 
 # Figures 1 and 2 (same layout as before: one panel per setting)
-STY = {"SA-tuned": ("native SA (tuned $T_0$)", "#1b6ca8", "-"), "SA-frozen": ("native SA ($T_0 = 2$)", "#1b6ca8", "--"),
-       "bSB": ("bSB (untuned)", "#c0392b", "-"), "bSB-tuned": ("bSB (tuned)", "#c0392b", "--")}
+from figstyle import STY as _FS, XLAB, YLAB, FONT, title
+plt.rcParams.update(FONT)
 for K, sets, fn in ((3, [(3, 200), (3, 500)], "fig_K3"), (4, [(4, 200)], "fig_K4")):
     sets = [s for s in sets if f"{s[0]}_{s[1]}" in out["table7"]]
     if not sets: continue
-    fig, axs = plt.subplots(1, len(sets), sharey=True, figsize=(3.45 * len(sets) if len(sets) > 1 else 4.6, 2.9 if len(sets) > 1 else 2.9), squeeze=False)
+    fig, axs = plt.subplots(1, len(sets), sharey=True, figsize=(7.16 if len(sets) > 1 else 5.2, 2.9), squeeze=False)
     for ax, (k, n) in zip(axs[0], sets):
         t7 = out["table7"][f"{k}_{n}"]
-        for sv, d in t7.items():
-            xs = [T for T in BUD if d.get(str(T))]; lab, col, ls = STY[sv]
-            ax.plot(xs, [d[str(T)]["gap"] for T in xs], ls, color=col, marker="o", ms=3, lw=1.2, label=lab)
-            ax.fill_between(xs, [d[str(T)]["lo"] for T in xs], [d[str(T)]["hi"] for T in xs], color=col, alpha=0.12, lw=0)
-        ax.set_xscale("log"); ax.set_xlabel("Wall-clock budget (s)", fontsize=8); (ax.set_ylabel("Gap to best-known (%)", fontsize=8) if ax is axs[0][0] else None)
-        ax.set_title(f"$K = {k}$, $n = {n}$", fontsize=9); ax.tick_params(labelsize=7); ax.grid(alpha=0.3, lw=0.5)
+        for sv, d in sorted(t7.items(), key=lambda kv: list(_FS).index(kv[0])):
+            xs = [T for T in BUD if d.get(str(T))]; col, mk, ls, lab = _FS[sv]
+            ax.plot(xs, [d[str(T)]["gap"] for T in xs], color=col, marker=mk, ls=ls, ms=4, lw=1.2, label=lab)
+            ax.fill_between(xs, [d[str(T)]["lo"] for T in xs], [d[str(T)]["hi"] for T in xs], color=col, alpha=0.15, lw=0)
+        ax.set_xscale("log"); ax.set_xlabel(XLAB); (ax.set_ylabel(YLAB) if ax is axs[0][0] else None)
+        ax.set_title(title(k, n)); ax.grid(alpha=0.3, which="both")
     h_, l_ = axs[0][0].get_legend_handles_labels()
-    fig.legend(h_, l_, loc="upper center", ncol=4 if len(sets) > 1 else 3, fontsize=6.5, frameon=False, bbox_to_anchor=(0.5, 1.0))
-    fig.tight_layout(rect=(0, 0, 1, 0.88 if len(sets) > 1 else 0.90)); fig.savefig(f"paper_run/figures/{fn}.png", dpi=600); fig.savefig(f"paper_run/figures/{fn}.pdf"); plt.close(fig)
+    fig.legend(h_, l_, loc="upper center", ncol=4 if len(sets) > 1 else 3, frameon=False, columnspacing=0.8, handlelength=1.8, bbox_to_anchor=(0.5, 1.0))
+    fig.tight_layout(rect=(0, 0, 1, 0.88 if len(sets) > 1 else 0.86)); fig.savefig(f"paper_run/figures/{fn}.png", dpi=600); fig.savefig(f"paper_run/figures/{fn}.pdf"); plt.close(fig)
 print(json.dumps({k: {sv: {T: (round(v["gap"], 1) if v else None) for T, v in d.items()} for sv, d in t.items()} for k, t in out["table7"].items()}, indent=0))

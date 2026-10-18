@@ -108,7 +108,13 @@ for s in range(5):
     W = make_instance(200, s, 3); a, J, lam = build_qubo(W, 3, 0.25); hl.append(lam / 2)
     nn.append(W[np.triu(W, 1) > 1.37 ** -3.5].mean())          # first shell: distance below the midpoint of 1 and sqrt(3)
     deg.append(float((W > 0).sum(1).mean())); dw.append(float(W.sum(1).max()))
-out["instance_stats"] = dict(half_lam=float(np.median(hl)), nn_w=float(np.mean(nn)), ratio=float(np.median(np.array(hl) / (np.array(nn) / 4))),
+_bysize = {}
+for n_ in (20, 50, 100, 200, 500):   # Table 2: mean degree and largest weighted degree per size (near-regular layout, seeds 0-4)
+    dg_, dw_ = [], []
+    for s in range(5):
+        W_ = make_instance(n_, s, 3); dg_.append(float((W_ > 0).sum(1).mean())); dw_.append(float(W_.sum(1).max()))
+    _bysize[n_] = dict(deg=float(np.mean(dg_)), deg_lo=min(dg_), deg_hi=max(dg_), dw_lo=min(dw_), dw_hi=max(dw_))
+out["instance_stats"] = dict(by_size=_bysize, half_lam=float(np.median(hl)), nn_w=float(np.mean(nn)), ratio=float(np.median(np.array(hl) / (np.array(nn) / 4))),
                              deg=float(np.mean(deg)), deg_lo=min(deg), deg_hi=max(deg), dw_lo=min(dw), dw_hi=max(dw))
 json.dump(out, open("results/round12_summary.json", "w"), indent=1)
 print(json.dumps({k: (v if k != "polstart" else {n: {kk: (vv if kk != "16000" and kk != "64000" else round(vv["med"], 2)) for kk, vv in d.items()} for n, d in v["starts"].items()}) for k, v in out.items()}, indent=1, default=str)[:4000])

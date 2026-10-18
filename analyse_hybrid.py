@@ -99,10 +99,11 @@ for K, n in groups:
 txt = "\n".join(lines) + "\n"; Path("results/hybrid.md").write_text(txt); print(txt)
 
 # figure: same visual conventions as Figures 1-2 of the paper; 600 dpi; full text width
-plt.rcParams.update({"font.size": 8})
+from figstyle import FONT as _F0
+plt.rcParams.update(_F0)
 fig, axs = plt.subplots(1, len(groups), figsize=(7.16, 2.95), squeeze=False)
-sty = {"SA-native": ("C1", "o", "-", "SA-native"), "SA-tuned": ("C5", "D", "-.", "SA-native (tuned $T_0$)"), "bSB": ("C4", "s", "--", "bSB (untuned)"),
-       "bSB+descent": ("C0", "v", ":", "bSB + 1-opt descent"), "bSB+polish": ("C3", "^", "-", "bSB + native SA polish")}
+from figstyle import STY as _FS, XLAB, YLAB, FONT, title
+sty = {s: _FS["SA-frozen" if s == "SA-native" else s] for s in ("SA-native", "SA-tuned", "bSB", "bSB+descent", "bSB+polish")}
 for ax, (K, n) in zip(axs[0], groups):
     for s in SOLVERS:
         pts = [(T, res[(K, n, s, T)]) for T in BUDGETS if res.get((K, n, s, T))]
@@ -111,10 +112,10 @@ for ax, (K, n) in zip(axs[0], groups):
         c, mk, ls, lab = sty[s]; ax.plot(x, m, color=c, marker=mk, ls=ls, label=lab, ms=4, lw=1.2); ax.fill_between(x, lo, hi, color=c, alpha=.15)
     ax.axvline(1, color="k", lw=1.0, ls="--", alpha=.5)
     ax.axhline(5, color="grey", lw=0.9, ls=":"); ax.text(95, 5.25, "5% gap", fontsize=7, ha="right", color="grey")
-    ax.set_xscale("log"); ax.set_xlabel("wall-clock budget T (s)")
-    if ax is axs[0][0]: ax.set_ylabel("expected best-of-N gap (%)")
-    ax.set_ylim(bottom=-0.5); ax.set_title(f"K={K}, n={n}", fontsize=8); ax.grid(alpha=.3, which="both")
-h, l = axs[0][0].get_legend_handles_labels(); fig.legend(h, l, loc="upper center", ncol=3, fontsize=8, frameon=False, bbox_to_anchor=(0.5, 1.0))
+    ax.set_xscale("log"); ax.set_xlabel(XLAB)
+    if ax is axs[0][0]: ax.set_ylabel(YLAB)
+    ax.set_ylim(bottom=-0.5); ax.set_title(title(K, n)); ax.grid(alpha=.3, which="both")
+h, l = axs[0][0].get_legend_handles_labels(); fig.legend(h, l, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 1.0))
 fig.tight_layout(rect=(0, 0, 1, 0.85), w_pad=0.8); fig.savefig("figures/hybrid_matched_wallclock.pdf"); fig.savefig("figures/hybrid_matched_wallclock.png", dpi=600)
 json.dump({f"{K}|{n}|{s}|{T}": v for (K, n, s, T), v in res.items()}, open("results/hybrid_res.json", "w"))
 
