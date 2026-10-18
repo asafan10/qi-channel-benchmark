@@ -6,6 +6,8 @@
           temperature {0.1, 0.2, 0.3} x highest {0.5, 1.0})
  PTTUNE3  extends it once more (replicas {32, 64} x penalty scale {0.09, 0.12, 0.18} x lowest temperature {0.3, 0.4, 0.6} x highest
           {0.5, 1, 2}, highest above lowest)
+ PTTUNE4  extends below the best upper temperature (replicas {16, 32, 64} x penalty scale {0.06, 0.09} x lowest
+          temperature {0.25, 0.3} x highest {0.35, 0.4, 0.45}); the grid before it is kept in results/r12_pttune_grid3.json
  PTPOOL a-b   pools of the tuned PT-QUBO on the test instances (500, 2,000 and 8,000 sweeps; pools sized for 10, 30 and 30 s)
  POLSTART a-b the polish of protocol P6 (native SA, T 0.3 -> 0.02, 16,000 and 64,000 sweeps; four runs each) started from: a random plan,
           the row-order repair of the empty vector, greedy by weighted degree, weighted DSATUR, the best of 1,000 descended roundings of the
@@ -93,6 +95,22 @@ if part == "PTTUNE3":   # the extended grid's best still lay on its edge (32 rep
     best = min([r for r in res.values() if r["phi"] >= 0.95] or res.values(), key=lambda r: r["mean_gap"])
     json.dump(dict(grid=res, best=best["cfg"], best_gap=best["mean_gap"], extended=True, extended2=True, best_before=d["best"]),
               open("results/r12_pttune.json", "w"), indent=1)
+
+if part == "PTTUNE4":   # the best upper temperature (0.5) was the lowest tested; extend below it
+    warm(K); ref = ref_of(); d = json.load(open("results/r12_pttune.json")); res = d["grid"]
+    for R, rho, tmin, tmax in itertools.product((16, 32, 64), (0.06, 0.09), (0.25, 0.3), (0.35, 0.4, 0.45)):
+        cfg = dict(R=R, rho=rho, Tmin=tmin, Tmax=tmax); key = json.dumps(cfg, sort_keys=True)
+        if key in res: continue
+        v = []; ph = []
+        for s in HO:
+            W = inst(s); csr = csr_from_W(W); rng = np.random.default_rng(51000 + s)
+            for k in range(2):
+                f, phi = pt_run(W, csr, cfg, 2000, rng, 52000 + 10 * s + k); v.append((f / ref[s] - 1) * 100); ph.append(phi)
+        res[key] = dict(cfg=cfg, mean_gap=float(np.mean(v)), phi=float(np.mean(ph)))
+        print("PT4", key, round(float(np.mean(v)), 2), round(float(np.mean(ph)), 3), flush=True)
+    best = min([r for r in res.values() if r["phi"] >= 0.95] or res.values(), key=lambda r: r["mean_gap"])
+    json.dump(dict(grid=res, best=best["cfg"], best_gap=best["mean_gap"], extended=True, extended2=True, extended3=True,
+                   best_before=d["best"]), open("results/r12_pttune.json", "w"), indent=1)
 
 if part == "PTPOOL":
     a_, b_ = map(int, sys.argv[2].split("-")); warm(K); jl = "results/r12_ptpool.jsonl"

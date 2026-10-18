@@ -60,7 +60,12 @@ for T in (1, 3, 10, 30):
     tests.append(dict(T=T, effort=b[0], med=float(np.median(b[1])), sa=float(np.median(sa)), med_diff=float(np.median(d)),
                       wins=int((d < 0).sum()), p=float(wilcoxon(d).pvalue), sqa=sq["med"] if sq else None))
 for t, h in zip(tests, holm([t["p"] for t in tests])): t["p_holm"] = h
-out["pt"] = dict(cfg=tune["best"], grid=len(tune["grid"]), heldout_gap=tune["best_gap"],
+_cfgs = [g["cfg"] for g in tune["grid"].values()]
+def _side(par):   # tested values below and above the best setting's value, other parameters free (lam/2 upper temperatures excluded)
+    v = [c[par] for c in _cfgs if not isinstance(c[par], str)]; b = tune["best"][par]
+    return dict(below=any(x < b for x in v), above=any(x > b for x in v))
+_edge = {par: _side(par) for par in ("R", "rho", "Tmin", "Tmax")}
+out["pt"] = dict(cfg=tune["best"], grid=len(tune["grid"]), edge=_edge, extensions=sum(bool(tune.get(k)) for k in ("extended", "extended2", "extended3")), prev=dict(cfg=tune.get("best_before"), gap=next((g["mean_gap"] for g in tune["grid"].values() if g["cfg"] == tune.get("best_before")), None)), heldout_gap=tune["best_gap"],
                  phi=float(np.mean([x["phi"] for s in SEEDS for v in pt[s]["runs"].values() for x in v])), tests=tests)
 # (b) polish from other starts
 ps = load("results/r12_polstart.jsonl"); assert all(s in ps for s in SEEDS), "polish-start runs incomplete"
