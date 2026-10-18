@@ -77,7 +77,8 @@ REF12 = ns["REF"]; SEEDS = list(ns["SEEDS"]); _, per = ns["table"](REF12)
 tests = []; rows_b = []; res = {}
 import os as _os
 SRC_B = [("results/irr_sqa_K3.jsonl", "SQA", "regular"), ("results/irr_saq_K3.jsonl", "SA-QUBO", "regular"),
-         ("results/irrpool_sqa_K3.jsonl", "SQA", "irregular"), ("results/irrpool_saq_K3.jsonl", "SA-QUBO", "irregular")]
+         ("results/irrpool_sqa_K3.jsonl", "SQA", "irregular"), ("results/irrpool_saq_K3.jsonl", "SA-QUBO", "irregular"),
+         ("results/irrpool_bsbp5_K3.jsonl", "bSB", "irregular")]
 for path, name, tuned in SRC_B:
     if not _os.path.exists(path): continue
     rr = {}
@@ -93,21 +94,39 @@ for path, name, tuned in SRC_B:
         bs = np.asarray(per[("bSB", T)])[idx] if ("bSB", T) in per else None
         tests.append(dict(solver=name, tuned=tuned, T=T, med=float(np.median(b[1])), sa=float(np.median(sa)), effort=b[0], med_diff=float(np.median(dl)),
                           bsb=float(np.median(bs)) if bs is not None else None, wins_vs_bsb=int((b[1] < bs).sum()) if bs is not None else None,
-                          wins=int((dl < 0).sum()), losses=int((dl > 0).sum()), n=len(dl), p=float(wilcoxon(dl).pvalue) if np.any(dl != 0) else 1.0))
+                          wins=int((dl < 0).sum()), losses=int((dl > 0).sum()), n=len(dl), p=float(wilcoxon(dl).pvalue) if np.any(dl != 0) else 1.0,
+                          p_tost=float(max(wilcoxon(dl + 0.5, alternative="greater").pvalue, wilcoxon(dl - 0.5, alternative="less").pvalue))))
 for t, h in zip(tests, holm([t["p"] for t in tests])): t["p_holm"] = h
+for t, h in zip(tests, holm([t["p_tost"] for t in tests])): t["p_tost_holm"] = h
 S["b_bsb_alone"] = {str(T): dict(med=float(np.median(per[("bSB", T)])), sa=float(np.median(per[("SA-tuned", T)])),
                                  med_diff=float(np.median(np.asarray(per[("bSB", T)]) - np.asarray(per[("SA-tuned", T)]))))
                     for T in BUD if ("bSB", T) in per and ("SA-tuned", T) in per}
 pf = lambda p: "< 0.001" if p < 0.001 else f"{p:.3f}"
 for t in tests:
     rows_b.append([t["solver"], t["tuned"], f"{t['T']} s", f1(t["med"]), f1(t["sa"]), f1(t["bsb"]), f"{t['med_diff']:+.2f}".replace("-", "−"),
-                   f"{t['wins']}/{t['losses']}", pf(t["p_holm"])])
-S["b"] = dict(res=res, tests=tests, rows=rows_b, header=["Solver", "Tuned on", "Budget", "Gap", "SA-native (tuned)", "bSB", "Difference", "Lower/higher", "p"],
-              widths=[1100, 1000, 700, 800, 1200, 700, 1000, 1100, 800])
+                   f"{t['wins']}/{t['losses']}", pf(t["p_holm"]), pf(t["p_tost_holm"])])
+S["b"] = dict(res=res, tests=tests, rows=rows_b, header=["Solver", "Tuned on", "Budget", "Gap", "SA-native (tuned)", "bSB", "Difference", "Lower/higher", "p, difference", "p, equivalence"],
+              widths=[1000, 950, 700, 700, 1100, 650, 950, 1000, 900, 950])
 A3, A4 = S["a"]["3"], S["a"]["4"]
 RB = S["b"]["res"]; NT = len(S["b"]["tests"])
 _it = {w: json.load(open(f"results/irrtune_{w}.json")) for w in ("saq", "sqa", "bsb", "sa")} if _os.path.exists("results/irrtune_sa.json") else None
 _ph = lambda k: f"{RB[k]['phi_mean']:.2f}" if k in RB else "–"
+# (c) the held-out tuning on the irregular layout: grid size, the setting used before (default or transferred) and the best setting
+if _it and _os.path.exists("results/irrtune_bsbp5.json"):
+    _it["bsbp5"] = json.load(open("results/irrtune_bsbp5.json"))
+    def _g(w, cfg):
+        k = json.dumps(cfg, sort_keys=True); return _it[w]["grid"][k]["mean_gap"] if k in _it[w]["grid"] else None
+    _desc = lambda c: ", ".join(f"{k} {v}" for k, v in c.items())
+    used = {"sa": dict(T0=0.6), "bsb": dict(rho=0.25), "bsbp5": dict(dt=0.5, gamma=1.0, c0m=1.0, rho=0.25),
+            "saq": json.load(open("results/saq_tune.json"))["3"]["best"], "sqa": json.load(open("results/sqa_tune.json"))["3"]["best"]}
+    names = {"sa": ("Native SA", "starting temperature"), "bsb": ("bSB", "penalty scale"), "bsbp5": ("bSB", "step size, pump exponent, coupling multiplier, penalty scale"),
+             "saq": ("Bit-flip SA", "penalty scale, starting and final temperature"), "sqa": ("SQA", "Trotter slices, temperature, initial field, penalty scale")}
+    rows_c = []
+    for w in ("sa", "bsb", "bsbp5", "saq", "sqa"):
+        gu = _g(w, used[w]); gb = _it[w]["best_gap"]
+        rows_c.append([names[w][0], f"{names[w][1]} ({len(_it[w]['grid'])})", f1(gu) if gu is not None else "–", _desc(_it[w]["best"]).replace("lam/2", "λ/2"), f1(gb)])
+    S["c"] = dict(rows=rows_c, header=["Solver", "Grid (configurations)", "Setting used before", "Best setting", "Best"], widths=[1100, 2900, 1200, 2700, 700],
+                  )
 json.dump(S, open("results/lowpen_summary.json", "w"), indent=1, ensure_ascii=False)
 for r in rows_a: print(r)
 for r in rows_b: print(r)

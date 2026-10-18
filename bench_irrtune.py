@@ -35,7 +35,7 @@ def tune(name, grid, run1):
                 f, phi = run1(W, csr, cfg, rng, 42000 + 10 * s + k); v.append((f / ref[s] - 1) * 100); ph.append(phi)
         key = json.dumps(cfg, sort_keys=True); res[key] = dict(cfg=cfg, mean_gap=float(np.mean(v)), phi=float(np.mean(ph)))
         print(name, key, round(float(np.mean(v)), 2), round(float(np.mean(ph)), 3), flush=True)
-    best = min(res.values(), key=lambda r: r["mean_gap"])
+    best = min([r for r in res.values() if r["phi"] >= 0.95] or res.values(), key=lambda r: r["mean_gap"])   # feasible samples only (as for the K = 4 re-tune)
     json.dump(dict(grid=res, best=best["cfg"], best_gap=best["mean_gap"]), open(f"results/irrtune_{name.lower()}.json", "w"), indent=1)
 
 
@@ -47,6 +47,14 @@ if part == "SQA":
          lambda W, csr, cfg, rng, sd: sqa_run(W, csr, K, cfg, 4000, rng, sd))
 if part == "BSB":
     tune("BSB", [dict(rho=r) for r in (0.015, 0.03, 0.06, 0.12, 0.25)], lambda W, csr, cfg, rng, sd: bsb_run(W, csr, K, cfg["rho"], 4, rng))
+if part == "BSBP5":   # bSB's full P5 grid (step size x pump exponent x coupling multiplier x penalty scale) on the same two instances
+    from bench_round5 import sb2
+    def _b(W, csr, cfg, rng, sd):
+        a, J, lam = build_qubo(W, K, cfg["rho"]); jj = (J.indptr.astype(np.int64), J.indices.astype(np.int64), J.data.astype(np.float64))
+        Xb = sb2(a, J, 4 * CFG["sb_steps"], CFG["sb_R"], rng, cfg["dt"], cfg["gamma"], cfg["c0m"])
+        x = Xb[int(np.argmin([qubo_energy(x, a, *jj) for x in Xb]))]; v, phi = decode_eval(x, K, csr)[:2]
+        return float(v), float(phi)
+    tune("BSBP5", [dict(dt=dt, gamma=g, c0m=c, rho=r) for dt, g, c, r in itertools.product((0.25, 0.5, 1.0), (0.5, 1.0, 2.0), (0.5, 1.0, 2.0), (0.12, 0.25, 0.5))], _b)
 if part == "SA":
     tune("SA", [dict(T0=t) for t in (0.15, 0.3, 0.6, 1.0, 2.0)],
          lambda W, csr, cfg, rng, sd: (float(sa_native(rng.integers(0, K, 200), K, *csr, cfg["T0"], 0.02, 64000, sd)[1]), 1.0))
@@ -57,7 +65,7 @@ if part == "POOL":
     done = {json.loads(l)["seed"] for l in open(jl)} if os.path.exists(jl) else set()
     if len(sys.argv) > 4 and sys.argv[4] == "redo": done = set()   # rerun under two-process load; the analysis keeps the last record
     plan = {"sqa": ((1000, 30), (4000, 100), (16000, 100)), "saq": ((4000, 30), (16000, 100), (64000, 100), (256000, 100)),
-            "bsb": ((1, 10), (4, 30), (16, 100))}[which]
+            "bsb": ((1, 10), (4, 30), (16, 100)), "bsbp5": ((1, 10), (4, 30), (16, 100))}[which]
     for seed in range(a_, b_):
         if seed in done: continue
         W = inst(seed); csr = csr_from_W(W); rng = np.random.default_rng(43000 + seed); rec = dict(K=K, seed=seed, cfg=cfg, runs={}); k = 0
@@ -67,6 +75,11 @@ if part == "POOL":
                 t0 = time.perf_counter()
                 if which == "sqa": f, phi = sqa_run(W, csr, K, cfg, eff, rng, 44000 + 1000 * seed + k)
                 elif which == "saq": f, phi = saq_run(W, csr, K, cfg, eff, 45000 + 100000 * seed + k)
+                elif which == "bsbp5":
+                    from bench_round5 import sb2
+                    a, J, lam = build_qubo(W, K, cfg["rho"]); jj = (J.indptr.astype(np.int64), J.indices.astype(np.int64), J.data.astype(np.float64))
+                    Xb = sb2(a, J, eff * CFG["sb_steps"], CFG["sb_R"], rng, cfg["dt"], cfg["gamma"], cfg["c0m"])
+                    x = Xb[int(np.argmin([qubo_energy(x, a, *jj) for x in Xb]))]; f, phi = decode_eval(x, K, csr)[:2]
                 else: f, phi = bsb_run(W, csr, K, cfg["rho"], eff, rng)
                 k += 1; pool.append(dict(f=f, phi=phi, t=time.perf_counter() - t0))
                 if need is None: need = max(4, min(150, 2 * int(Tmax // pool[0]["t"])))
