@@ -1,0 +1,7 @@
+Solver,Grid (configurations),Setting used before,Best setting,Best
+Native SA,starting temperature (5),−0.1,T₀ = 1.0,−0.6
+bSB,penalty scale (5),1.3,ρ = 0.25,1.3
+bSB,"step size, pump exponent, coupling multiplier, penalty scale (81)",1.3,"Δt = 1.0, γ = 0.5, coupling multiplier 0.5, ρ = 0.12",0.8
+Bit-flip SA,"penalty scale, starting and final temperature (50)",11.5,"ρ = 0.06, T₀ = λ/2, T₁ = 0.02",4.7
+SQA,"Trotter slices, temperature, initial field, penalty scale (54)",1.8,"P = 32, T = 0.05, Γ₀ = 1.0, ρ = 0.12",−0.2
+PT-QUBO,"replicas, penalty scale, lowest and highest temperature (158)",–,"R = 64, ρ = 0.09, T from 0.25 to 0.45",4.5

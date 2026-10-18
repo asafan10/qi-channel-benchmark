@@ -1,0 +1,11 @@
+"K, layout, encoding",bSB 3k,bSB 12k,bSB 48k,SA 16k,SA 64k,SA 256k
+"2, regular, none",0.8,0.7,0.7,1.0,1.0,0.6
+"2, irregular, none",0.6,0.3,0.5,1.7,1.5,1.4
+"3, regular, one-hot",12.5,12.5,13.2,11.0,7.5,3.6
+"3, regular, per-cell penalty",14.4,12.0,11.4,–,–,–
+"3, regular, domain wall",21.7,21.0,20.6,–,–,–
+"3, irregular, one-hot",6.4,6.2,5.4,3.5,3.1,2.2
+"3, irregular, per-cell penalty",7.3,6.9,7.0,–,–,–
+"3, irregular, domain wall",9.2,8.8,8.9,–,–,–
+"4, regular, one-hot",12.0,8.6,8.1,4.9,3.4,1.3
+"4, regular, domain wall",14.8,12.0,12.2,–,–,–

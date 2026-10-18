@@ -1,0 +1,12 @@
+Annealer,"4,000","16,000","64,000"
+Native SA,14.1,11.1,6.8
+"Native SA, empty cells allowed at penalty λ (ρ=0.25)",14.6,11.4,6.7
+"One-hot QUBO, one-hot-preserving move, ρ=0.25",14.1,11.1,6.7
+"One-hot QUBO, one-hot-preserving move, ρ=0.06",14.1,11.1,6.7
+"One-hot QUBO, single-bit flips, ρ=0.25",50.6,44.6,36.8
+"One-hot QUBO, single-bit flips, ρ=0.12",24.3,17.3,11.6
+"One-hot QUBO, single-bit flips, ρ=0.06",25.2,20.6,15.6
+"One-hot QUBO, single-bit flips, own schedule, ρ=0.25",49.0,42.3,36.7
+"One-hot QUBO, single-bit flips, tuned schedule (0.5λ to 0.15), ρ=0.25",–,–,35.2
+"One-hot QUBO, single-bit flips, tuned schedule (0.5λ to 0.15), ρ=0.12",–,–,9.5
+"One-hot QUBO, single-bit flips, tuned schedule (2.0 to 0.02), ρ=0.06",–,–,15.0

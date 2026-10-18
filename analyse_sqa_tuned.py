@@ -46,6 +46,5 @@ for K in (3, 4):
         rows.append([f"{K}", f"{T} s"] + [f1(per[sv][T][1]) if T in per[sv] else "–" for sv in ("SQA", "SA-tuned", "bSB")])
 S["header"] = ["$K$", "Budget", "SQA (tuned)", "SA-native (tuned)", "bSB"]; S["rows"] = rows; S["widths"] = [600, 900, 1500, 1500, 1500]
 c3, c4 = S["3"], S["4"]; t3, t4 = S["tune"]["3"], S["tune"]["4"]
-m = lambda c, sv, T: c["matched"][sv].get(str(T))
 json.dump(S, open("results/sqa_tuned_summary.json", "w"), indent=1, ensure_ascii=False)
 [print(r) for r in rows]

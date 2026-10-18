@@ -1,0 +1,6 @@
+n,Layout,Improves,Gap to reference,Gap to bound,Equals reuse,Time (s)
+20,near-regular,0/5,+0.00,0.99,5/5,0.3
+50,near-regular,0/5,+0.00,1.04,5/5,5.2
+100,near-regular,3/5,−0.93,0.42,5/5,45.2
+200,near-regular,3/5,−1.07,1.08,2/5,46.8
+200,jitter 0.3,8/30,+0.37,6.80,–,35.1

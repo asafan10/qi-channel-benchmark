@@ -1,0 +1,10 @@
+Method,Settings,"K = 3, 10 s","K = 3, 30 s","K = 4, 10 s","K = 4, 30 s",Paired tests against tuned native SA
+Native SA,starting temperature tuned on held-out instances,1.7,1.2,1.9,1.1,reference method of the tests
+bSB alone,default,3.9,4.2,8.5,7.7,"worse at every budget on all 30 instances, both channel counts"
+bSB + polish,polish temperature tuned on held-out instances,1.6,1.1,2.0,1.4,K = 3: within the 0.5-point margin at 1–30 s; K = 4: worse at every budget (pre-specified)
+bSB + long polish,"polish of 256,000 sweeps, as long as the longest native SA runs",–,1.0,–,–,ahead at 30 s by 0.10 points; not distinguishable at 100 s; both far below the margin (post hoc)
+Breakout local search,"published parameters, untuned",0.3,0.1,1.0,0.7,better at every budget except 100 s at K = 4; better than bSB + polish at every budget (post hoc)
+SQA,tuned on held-out irregular instances,2.9,1.2,–,–,"worse at 3 and 10 s; not distinguishable at 30 s, equivalence not shown (post hoc)"
+Bit-flip SA on the QUBO,tuned on held-out irregular instances,7.8,6.5,–,–,worse at 1–30 s by 5.3–8.0 points (post hoc)
+PT-QUBO,tuned on held-out irregular instances,6.9,4.9,–,–,worse at 1–30 s by 3.8–8.9 points (post hoc)
+"bSB, re-tuned",full P5 grid on held-out irregular instances,4.3,4.3,–,–,worse at 1–30 s by 2.2–3.4 points (post hoc)

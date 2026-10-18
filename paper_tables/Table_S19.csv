@@ -1,0 +1,9 @@
+Plan,Gap,Bulk cells,Domains,Largest,Wall share,Wall cost
+"bSB, 3,000 steps",12.7,44,5,30,82,76.8
+"bSB, 48,000 steps",12.9,49,5,39,77,70.6
+"bSB, domain wall, 48,000 steps",20.6,33,4,20,90,89.2
+"native SA, 1,000 sweeps",17.9,34,4.5,20,90,87.7
+"native SA, 4,000 sweeps",12.9,42,4.5,34,83,77.9
+"native SA, 64,000 sweeps",7.2,59,4,59,63,55.5
+"native SA, 256,000 sweeps",3.2,73,2.5,88,47,40.4
+reuse pattern,−1.1,100,1,200,0,0.0

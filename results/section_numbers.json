@@ -1,0 +1,57 @@
+{
+ "5.3_cross_validation": {
+  "instances": 10,
+  "top5_gap_range": [
+   4.782468427209686,
+   6.05264382253889
+  ],
+  "default_gap": 4.768564115080727,
+  "best_tuned_beats_default": 5,
+  "spearman_tuning_vs_validation": 0.19999999999999998
+ },
+ "5.5_penalty_sweep": {
+  "bSB_below_SA_QUBO": 46,
+  "comparisons": 50,
+  "best_rho_SA_QUBO_200": "0.06",
+  "best_rho_bSB_200": "0.12"
+ },
+ "5.7_sb_package": {
+  "K3_n200_pkg-bSB": {
+   "median_gap": 29.426548338491454,
+   "min_gap": 11.716379222756279,
+   "max_gap": 30.138643614379145,
+   "phi": 0.008666666666666666
+  },
+  "K3_n200_pkg-dSB-heated": {
+   "median_gap": 42.079860517378286,
+   "min_gap": 41.070008804271275,
+   "max_gap": 43.932713813854996,
+   "phi": 1.0
+  },
+  "K3_n500_pkg-bSB": {
+   "median_gap": 17.547538954100638,
+   "min_gap": 11.313714928915065,
+   "max_gap": 29.3197817947499,
+   "phi": 0.0
+  },
+  "K3_n500_pkg-dSB-heated": {
+   "median_gap": 43.46167998873411,
+   "min_gap": 41.60414799716856,
+   "max_gap": 45.419936670592676,
+   "phi": 1.0
+  },
+  "K4_n200_pkg-bSB": {
+   "median_gap": 2.5304520510577744,
+   "min_gap": 0.1033876580817994,
+   "max_gap": 3.623161964291377,
+   "phi": 0.0
+  },
+  "K4_n200_pkg-dSB-heated": {
+   "median_gap": 90.45953543111295,
+   "min_gap": 82.86739947895228,
+   "max_gap": 104.4830606428688,
+   "phi": 0.9966666666666666
+  },
+  "max_energy_excess_pct_up_to_100_cells": 1.8098181043640755
+ }
+}

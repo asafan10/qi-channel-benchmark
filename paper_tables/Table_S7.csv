@@ -1,0 +1,6 @@
+Configuration,4× steps,16× steps
+"Untuned default (step 0.5, exponent 1, multiplier 1, ρ=0.25)",7.18,7.14
+"Frozen (step 0.5, exponent 2, multiplier 2, ρ=0.25)",6.05,5.71
+"Second best (step 1.0, exponent 1, multiplier 0.5, ρ=0.12)",6.07,6.70
+"Third best (step 1.0, exponent 0.5, multiplier 1, ρ=0.25)",6.11,6.76
+Grid median / worst,7.51 / 22.52,not run
