@@ -1,0 +1,27 @@
+{
+  "title": "Benchmarking Ballistic Simulated Bifurcation on a Penalty-QUBO Formulation of Wireless Channel Planning: Domain Baselines and Matched Protocols (code and data)",
+  "upload_type": "software",
+  "description": "<p>Code, raw run records and analysis scripts for the article \"Benchmarking Ballistic Simulated Bifurcation on a Penalty-QUBO Formulation of Wireless Channel Planning: Domain Baselines and Matched Protocols\" by A. Saafan.</p><p>The repository contains the solvers (ballistic simulated bifurcation, native-space and QUBO simulated annealing, simulated quantum annealing, parallel tempering, breakout local search, tabu search and the frequency-reuse baseline), the instance generator, the semidefinite lower bounds, every raw run record, the analysis scripts that compute each table and figure, the analysis plans committed before the confirmatory runs, and every numerical table of the article as a CSV file. See README.md for the mapping from each result to its script and records.</p>",
+  "creators": [
+    {
+      "name": "Saafan, Asmaa",
+      "affiliation": "National Telecommunication Institute (NTI), Cairo, Egypt",
+      "orcid": "0000-0003-2847-135X"
+    }
+  ],
+  "keywords": [
+    "quantum-inspired optimisation",
+    "simulated bifurcation",
+    "simulated quantum annealing",
+    "Ising machines",
+    "QUBO",
+    "benchmarking",
+    "semidefinite relaxation",
+    "frequency reuse",
+    "wireless networks",
+    "channel assignment"
+  ],
+  "license": "mit",
+  "access_right": "open",
+  "language": "eng"
+}
